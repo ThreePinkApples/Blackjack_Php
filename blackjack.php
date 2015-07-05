@@ -12,7 +12,7 @@ if($_SESSION['newRound']){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
         $_SESSION['error'] = 'For lite penger';
-        header('Location: /');
+        header('Location: index.php');
         exit();
     }
 
@@ -64,7 +64,7 @@ if($_SESSION['newRound']){
 
     $_SESSION['newRound'] = False;
     //Prevents refresh of page to instantly start a new game
-    header('Location: /');
+    header('Location: index.php');
 }
 
 if(isset($_POST['hit'])) hit();
