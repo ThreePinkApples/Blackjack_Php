@@ -11,7 +11,7 @@ if($_SESSION['newRound']){
     if($_SESSION['playerMoney'] < $_POST['bet']){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
-        $_SESSION['error'] = 'For lite penger';
+        $_SESSION['error'] = 'Not enough money';
         header('Location: index.php');
         exit();
     }
@@ -303,7 +303,7 @@ function printCards(){
         $count = count($_SESSION['dealerCards']);
     }
     $result .= '<div id="dealerCards">';
-    $result .= '<h4>Dealers kort</h4>';
+    $result .= '<h4>Dealer\'s cards</h4>';
     for($i = 0; $i < $count; $i++){
         $card = $_SESSION['dealerCards'][$i];
         $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" />';
@@ -315,7 +315,7 @@ function printCards(){
 
     //Print player cards, always print all
     $result .= '<div id="playerCards">';
-    $result .= '<h4>Dine kort</h4>';
+    $result .= '<h4>Your cards</h4>';
     for($i = 0; $i < count($_SESSION['playerCards']); $i++){
         $card = $_SESSION['playerCards'][$i];
         $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" />';

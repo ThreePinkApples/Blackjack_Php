@@ -11,7 +11,7 @@ session_start();
 $_SESSION['owner'] = 'aerandir92';
 if(!isset($_SESSION['fiveCharlie'])) $_SESSION['fiveCharlie'] = True;
 if(!isset($_SESSION['soft17'])) $_SESSION['soft17'] = False;
-if(!isset($_SESSION['message'])) $_SESSION['message'] = "Ha det morro!";
+if(!isset($_SESSION['message'])) $_SESSION['message'] = "Have fun!";
 if(!isset($_SESSION['size'])) $_SESSION['size'] = 2;
 if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 1000000;
 
@@ -40,30 +40,30 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 </head>
 <body>
     <div id="welcome">
-        <p>Velkommen til <?php echo $owner ?> sin blackjack! Dette kasinoet har <?php echo $account ?> kroner på konto.</p>
+        <p>Welcome to <?php echo $owner ?>'s blackjack! This casino has <?php echo '$'.$account ?> left.</p>
     </div>
     <div id="settings">
         <ul>
-            <li>Du kan maks satse <?php echo $maxbet ?> kroner</li>
+            <li>You can't bet more than <?php echo '$'.$maxbet ?></li>
             <?php
-            if ($fiveCharlie) echo '<li>Her kan du vinne med en "Five Card Charlie"!</li>';
-            else echo '<li>Du kan <b>ikke</b> vinne med en "Five Card Charlie"!</li>';
+            if ($fiveCharlie) echo '<li>You can win on a "Five-card Charlie". </li>';
+            else echo '<li>You <b>can\'t</b>win on a "Five-card Charlie". </li>';
 
-            if ($soft17) echo '<li>Dealeren <b>må</b> trekke på en "Soft 17"</li>';
-            else echo '<li>Dealeren kan <b>ikke</b> trekke på en "soft 17"</li>';
+            if ($soft17) echo '<li>The dealer <b>have to</b> draw on a "soft 17". </li>';
+            else echo '<li>The dealer <b>can\'t</b> draw on a "soft 17". </li>';
 
-            if ($size > 1) echo '<li>Dette kasinoet bruker ' . $size . ' kortstokker</li>';
-            else echo '<li>Dette kasinoet bruker 1 korstokk</li>';
+            if ($size > 1) echo '<li>This casino uses ' . $size . ' decks</li>';
+            else echo '<li>This casino uses 1 deck</li>';
             ?>
         </ul>
     </div>
     <div id="message">
         <p>
-            En listen hilsen fra eieren av kasinoet: <pre><?php echo $message ?></pre>
+            A little message from the owner: <pre><?php echo $message ?></pre>
         </p>
     </div>
     <br />
-    <a href="cp.php" target="_blank">Kontrollpanel</a>
+    <a href="cp.php" target="_blank">Controllpanel</a>
 <?php
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -79,10 +79,9 @@ if(!$_SESSION['playing']) {
 ?>
     <form method="POST">
         <div>
-            <p>Du har <?php echo $playerMoney ?> kroner</p>
-            <span>Sats:</span>
+            <p>You have <?php echo '$'.$playerMoney ?> </p>
+            <span>Bet: $</span>
             <input type="number" id="bet" name="bet" min="100" max="<?php echo $maxbet ?>" />
-            <span>kroner</span>
             <?php
             if(isset($_SESSION['error'])) {
                 echo '<p>'.$_SESSION['error'].'</p>';
@@ -91,7 +90,7 @@ if(!$_SESSION['playing']) {
             ?>
         </div>
         <div>
-            <input type="submit" name="start" id="start" value="Start spill!"/>
+            <input type="submit" name="start" id="start" value="Play!"/>
         </div>
     </form>
 
@@ -113,26 +112,26 @@ else {
         else {
             echo '<p>';
             if ($_SESSION['result'] === 'Player') {
-                echo '<b>Du vant!</b>';
+                echo '<b>You won!</b>';
             } elseif ($_SESSION['result'] === 'Dealer') {
-                echo '<b>Du tapte!</b>';
+                echo '<b>You lost!</b>';
             } elseif ($_SESSION['result'] === 'Push') {
-                echo '<b>Uavgjort!</b>';
+                echo '<b>Draw!</b>';
             } elseif ($_SESSION['result'] === 'Charlie') {
-                echo '<b>Five-card Charlie!</b> Du får dermed utbetalt 3 ganger det du satset!';
+                echo '<b>Five-card Charlie!</b> You win 3 times your bet!';
             } elseif ($_SESSION['result'] === 'Blackjack') {
-                echo '<b>Blakjack!</b> Du får dermed utbetalt 2.5 ganger det du satset!';
+                echo '<b>Blakjack!</b> You win 2.5 times your bet!';
             }
             echo '</p>';
             ?>
             <input type="number" id="bet" name="bet" min="100" max="<?php echo $maxbet ?>"
                    value="<?php echo $_SESSION['bet'] ?>"/>
-            <button type="submit" name="again" id="again" value="again">Spill på nytt</button>
+            <button type="submit" name="again" id="again" value="again">Play again</button>
         <?php
         }
         ?>
     </form>
-    <h5>Dine penger: <?php echo $_SESSION['playerMoney'] ?></h5>
+    <h5>You money: <?php echo '$'.$_SESSION['playerMoney'] ?></h5>
 <?php
 }
 ?>
