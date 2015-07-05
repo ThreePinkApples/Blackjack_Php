@@ -8,6 +8,7 @@
 
 if($_SESSION['newRound']){
 
+    //Make sure player is not trying to use money it doesn't have
     if($_SESSION['playerMoney'] < $_POST['bet']){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
