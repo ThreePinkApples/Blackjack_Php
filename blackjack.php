@@ -50,6 +50,8 @@ if($_SESSION['newRound']){
     dealerDraw();
     calculate();
 
+    $_SESSION['newRound'] = False;
+
     if($_SESSION['dealerSum'] === 21) $_SESSION['dealerBlackjack'] = True;
     if($_SESSION['playerSum'] === 21){
         $_SESSION['playerBlackjack'] = True;
@@ -60,11 +62,9 @@ if($_SESSION['newRound']){
     }
     else{
         printCards();
+        //Prevents refresh of page to instantly start a new game
+        header('Location: index.php');
     }
-
-    $_SESSION['newRound'] = False;
-    //Prevents refresh of page to instantly start a new game
-    header('Location: index.php');
 }
 
 if(isset($_POST['hit'])) hit();
