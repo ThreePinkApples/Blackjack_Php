@@ -120,7 +120,7 @@ else {
             } elseif ($_SESSION['result'] === 'Charlie') {
                 echo '<b>Five-card Charlie!</b> You win 3 times your bet!';
             } elseif ($_SESSION['result'] === 'Blackjack') {
-                echo '<b>Blakjack!</b> You win 2.5 times your bet!';
+                echo '<b>Blackjack!</b> You win 2.5 times your bet!';
             }
             echo '</p>';
             ?>
