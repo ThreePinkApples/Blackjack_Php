@@ -6,8 +6,17 @@
  * Time: 17.52
  */
 
-if($_SESSION['newRound']){
+/**
+ *
+ */
+if($_SESSION['newRound']) init();
+elseif(isset($_POST['hit'])) hit();
+elseif(isset($_POST['check'])) check();
 
+/**
+ * Initializes a new round
+ */
+function init(){
     //Make sure player is not trying to use money it doesn't have
     if($_SESSION['playerMoney'] < $_POST['bet']){
         $_SESSION['newRound'] = False;
@@ -68,9 +77,9 @@ if($_SESSION['newRound']){
     }
 }
 
-if(isset($_POST['hit'])) hit();
-elseif(isset($_POST['check'])) check();
-
+/**
+ * Handles "hit" press
+ */
 function hit(){
     playerDraw();
     calculate();
@@ -80,7 +89,7 @@ function hit(){
 }
 
 /**
- * User pressed check
+ * Handles "check" press
  */
 function check(){
     calculate();
@@ -184,22 +193,19 @@ function endOfGame(){
     if($_SESSION['playerBlackjack']){
         if($_SESSION['dealerBlackjack']){
             //Draw
-            $_SESSION['playerMoney'] += $_SESSION['bet'];
-            $_SESSION['account'] -= $_SESSION['bet'];
             $_SESSION['result'] = 'Push';
+            adjustMoney();
         }
         else{
             //Blackjack victory to player, wins 2.5x!
-            $_SESSION['playerMoney'] += $_SESSION['bet'] * 2.5;
-            $_SESSION['account'] -= $_SESSION['bet'] * 2.5;
             $_SESSION['result'] = 'Blackjack';
+            adjustMoney();
         }
     }
     elseif($_SESSION['charlie']){
         //Player wins 3x on charlie!
-        $_SESSION['playerMoney'] += $_SESSION['bet'] * 3;
-        $_SESSION['account'] -= $_SESSION['bet'] * 3;
         $_SESSION['result'] = 'Charlie';
+        adjustMoney();
     }
     elseif($_SESSION['playerSum'] > 21){
         //Player looses, even if dealer also has > 21
@@ -207,9 +213,8 @@ function endOfGame(){
     }
     elseif($_SESSION['dealerSum'] > 21){
         //Normal win for player, 2x!
-        $_SESSION['playerMoney'] += $_SESSION['bet'] * 2;
-        $_SESSION['account'] -= $_SESSION['bet'] * 2;
         $_SESSION['result'] = 'Player';
+        adjustMoney();
     }
     elseif($_SESSION['dealerSum'] > $_SESSION['playerSum']){
         //Normal win for dealer
@@ -217,18 +222,29 @@ function endOfGame(){
     }
     elseif($_SESSION['dealerSum'] < $_SESSION['playerSum']){
         //Normal win for player, 2x!
-        $_SESSION['playerMoney'] += $_SESSION['bet'] * 2;
-        $_SESSION['account'] -= $_SESSION['bet'] * 2;
         $_SESSION['result'] = 'Player';
+        adjustMoney();
     }
     elseif($_SESSION['dealerSum'] === $_SESSION['playerSum']){
         //Draw
-        $_SESSION['playerMoney'] += $_SESSION['bet'];
-        $_SESSION['account'] -= $_SESSION['bet'];
         $_SESSION['result'] = 'Push';
+        adjustMoney();
     }
 
     stop();
+}
+
+/**
+ * Adjusts money based on result
+ */
+function adjustMoney(){
+    $factor = 1;
+    if($_SESSION['result'] === 'Player') $factor = 2;
+    elseif($_SESSION['result'] === 'Blackjack') $factor = 2.5;
+    elseif($_SESSION['result'] === 'Charlie') $factor = 3;
+
+    $_SESSION['playerMoney'] += $_SESSION['bet'] * $factor;
+    $_SESSION['account'] -= $_SESSION['bet'] * $factor;
 }
 
 /**
