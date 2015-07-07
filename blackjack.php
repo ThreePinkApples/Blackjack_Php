@@ -104,11 +104,18 @@ function stand(){
     calculate();
     $_SESSION['handDone'][$_SESSION['currentHand']] = True;
     if(!endGameCheck()) {
-        $_SESSION['currentHand']++;
-        printCards();
+        //Play on next hand
+        nextHand();
     }
 }
 
+function nextHand(){
+    $_SESSION['currentHand']++;
+    playerDraw();
+    calculate();
+    endHandCheck();
+    printCards();
+}
 /**
  * Handles "split" press
  */
@@ -151,8 +158,8 @@ function endHandCheck(){
         $_SESSION['handDone'][$_SESSION['currentHand']] = True;
 
         if(!endGameCheck()) {
-            printCards();
-            $_SESSION['currentHand']++;
+            //Play on next hand
+            nextHand();
         }
     }
     //Reaching or going above 21 automatically ends hand
@@ -195,13 +202,15 @@ function playerDraw(){
         array_splice($_SESSION['deck'], $index, 1);
     }
     if($numberOfCards + $count === 2
-        && $hand !== 3
+        && $hand < $_SESSION['maxHands'] -1
         && $_SESSION['playerCards'][$hand][0]['gameValue'] === $_SESSION['playerCards'][$hand][1]['gameValue']
         && !$_SESSION['splitAvailable'][$hand]){
 
             $_SESSION['splitAvailable'][$hand] = True;
     }
-    elseif($_SESSION['splitAvailable'][$hand]) $_SESSION['splitAvailable'][$hand] = False;
+    elseif($hand < $_SESSION['maxHands'] -1 &&
+        $_SESSION['splitAvailable'][$hand])
+            $_SESSION['splitAvailable'][$hand] = False;
 }
 
 /**
