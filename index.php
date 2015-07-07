@@ -104,36 +104,6 @@ else {
     include('blackjack.php');
     echo $_SESSION['printedCards'];
 ?>
-    <form method="POST">
-        <?php
-            if(!$_SESSION['endGame']) {
-        ?>
-            <button type="submit" name="hit" id="hit" value="hit" title="Get another card.">Hit</button>
-            <button type="submit" name="stand" id="stand" value="stand" title="End the game.">Stand</button>
-        <?php
-            }
-        else {
-            echo '<p>';
-            if ($_SESSION['result'] === 'Player') {
-                echo '<b>You won!</b>';
-            } elseif ($_SESSION['result'] === 'Dealer') {
-                echo '<b>You lost!</b>';
-            } elseif ($_SESSION['result'] === 'Push') {
-                echo '<b>Draw!</b>';
-            } elseif ($_SESSION['result'] === 'Charlie') {
-                echo '<b>Five-card Charlie!</b> You win 3 times your bet!';
-            } elseif ($_SESSION['result'] === 'Blackjack') {
-                echo '<b>Blackjack!</b> You win 2.5 times your bet!';
-            }
-            echo '</p>';
-            ?>
-            <input type="number" id="bet" name="bet" min="100" max="<?php echo $maxbet ?>"
-                   value="<?php echo $_SESSION['bet'] ?>"/>
-            <button type="submit" name="again" id="again" value="again">Play again</button>
-        <?php
-        }
-        ?>
-    </form>
     <h5>You money: <?php echo '$'.$_SESSION['playerMoney'] ?></h5>
 <?php
 }
