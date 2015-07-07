@@ -18,6 +18,13 @@ elseif(isset($_POST['split'])) splitHand();
  * Initializes a new round
  */
 function init(){
+    if(!$_SESSION['acceptNewRound']){
+        exit();
+    }
+    else{
+        $_SESSION['acceptNewRound'] = False;
+    }
+
     //Make sure player is not trying to use money it doesn't have
     if($_SESSION['playerMoney'] < $_POST['bet']){
         $_SESSION['newRound'] = False;
@@ -142,6 +149,7 @@ function splitHand(){
  * Stop the game
  */
 function stop(){
+    $_SESSION['acceptNewRound'] = True;
     $_SESSION['playing'] = False;
 }
 

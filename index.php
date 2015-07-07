@@ -19,6 +19,8 @@ if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
 if(!isset($_SESSION['maxHands'])) $_SESSION['maxHands'] = 4;
 
+if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
+
 
 $owner = $_SESSION['owner'];
 $fiveCharlie = $_SESSION['fiveCharlie'];
