@@ -101,7 +101,7 @@ if(!$_SESSION['playing']) {
             ?>
         </div>
         <div>
-            <input type="submit" name="start" id="start" value="Play!"/>
+            <button type="submit" name="start" id="start" value="start">Play!</button>
         </div>
     </form>
 </section>
