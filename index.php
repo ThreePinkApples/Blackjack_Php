@@ -45,15 +45,18 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
     <div id="settings">
         <ul>
             <li>You can't bet more than <?php echo '$'.$maxbet ?></li>
+            <li title="A Five-card Charlie is when you get 5 cards without going above a sum of 21.">
             <?php
-            if ($fiveCharlie) echo '<li>You can win on a "Five-card Charlie". </li>';
-            else echo '<li>You <b>can\'t</b>win on a "Five-card Charlie". </li>';
+            if ($fiveCharlie) echo 'You can win on a "Five-card Charlie". </li>';
+            else echo 'You <b>can\'t</b>win on a "Five-card Charlie". </li>';
 
-            if ($soft17) echo '<li>The dealer <b>have to</b> draw on a "soft 17". </li>';
-            else echo '<li>The dealer <b>can\'t</b> draw on a "soft 17". </li>';
+            echo '<li title="Soft 17 is when the sum is 17, but with an ace that counts as 11. Making it soft since it can also count as 7.">';
+            if ($soft17) echo 'The dealer <b>have to</b> draw on a "soft 17". </li>';
+            else echo 'The dealer <b>can\'t</b> draw on a "soft 17". </li>';
 
-            if ($size > 1) echo '<li>This casino uses ' . $size . ' decks</li>';
-            else echo '<li>This casino uses 1 deck</li>';
+            echo '<li title="The number of decks may alter your winning chance.">';
+            if ($size > 1) echo 'This casino uses ' . $size . ' decks</li>';
+            else echo 'This casino uses 1 deck</li>';
             ?>
         </ul>
     </div>
@@ -105,8 +108,8 @@ else {
         <?php
             if(!$_SESSION['endGame']) {
         ?>
-            <button type="submit" name="hit" id="hit" value="hit">Nytt kort</button>
-            <button type="submit" name="check" id="check" value="check">Stå</button>
+            <button type="submit" name="hit" id="hit" value="hit" title="Get another card.">Hit</button>
+            <button type="submit" name="stand" id="stand" value="stand" title="End the game.">Stand</button>
         <?php
             }
         else {

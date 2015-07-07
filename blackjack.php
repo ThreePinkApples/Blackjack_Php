@@ -11,7 +11,7 @@
  */
 if($_SESSION['newRound']) init();
 elseif(isset($_POST['hit'])) hit();
-elseif(isset($_POST['check'])) check();
+elseif(isset($_POST['stand'])) stand();
 
 /**
  * Initializes a new round
@@ -91,7 +91,7 @@ function hit(){
 /**
  * Handles "check" press
  */
-function check(){
+function stand(){
     calculate();
     $_SESSION['endGame'] = True;
     if($_SESSION['playerSum'] <= 21){
@@ -120,7 +120,7 @@ function endGameCheck(){
         endOfGame();
     }
     elseif($_SESSION['playerSum'] >= 21){
-        check();
+        stand();
     }
 }
 
