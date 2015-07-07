@@ -275,8 +275,9 @@ function endOfGame(){
  * @param int $hand Which hands result to adjust for
  */
 function adjustMoney($hand){
-    $factor = 1;
-    if($_SESSION['result'][$hand] === 'Player') $factor = 2;
+    $factor = 0;
+    if($_SESSION['result'][$hand] === 'Push') $factor = 1;
+    elseif($_SESSION['result'][$hand] === 'Player') $factor = 2;
     elseif($_SESSION['result'][$hand] === 'Blackjack') $factor = 2.5;
     elseif($_SESSION['result'][$hand] === 'Charlie') $factor = 3;
 
