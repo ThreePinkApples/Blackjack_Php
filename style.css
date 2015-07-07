@@ -1,0 +1,11 @@
+body{
+    padding-left: 20px;
+}
+.hand{
+    padding: 10px 10px 10px 0px;
+    float: left;
+}
+.game-section, #money, #playerCards, #dealerCards{
+    width: 100%;
+    float: left;
+}

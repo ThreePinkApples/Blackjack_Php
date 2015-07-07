@@ -12,6 +12,7 @@
 if($_SESSION['newRound']) init();
 elseif(isset($_POST['hit'])) hit();
 elseif(isset($_POST['stand'])) stand();
+elseif(isset($_POST['split'])) splitHand();
 
 /**
  * Initializes a new round
@@ -31,7 +32,7 @@ function init(){
     //Initializes only one array, so that you can count this array to know number of splits
     $_SESSION['playerCards'] = [[]]; //Cards player has received
     $_SESSION['dealerCards'] = []; //Cards dealer has received
-    $_SESSION['playerCardsCalculated'] = [0,0,0,0]; //How many cards have already been calculated
+    //$_SESSION['playerCardsCalculated'] = [0,0,0,0]; //How many cards have already been calculated
     $_SESSION['dealerCardsCalculated'] = 0; //How many cards have already been calculated
 
     $_SESSION['playerAce'] = [False, False, False, False]; //Player has ace counting as 11
@@ -50,16 +51,17 @@ function init(){
 
     $_SESSION['playerSum'] = [0,0,0,0];
     $_SESSION['dealerSum'] = 0;
-    $_SESSION['bet'] = $_POST['bet'];
-    $_SESSION['currentHand'] = 0;
+    $_SESSION['bets'][0] = $_POST['bet'];
+    $_SESSION['originalBet'] = $_POST['bet'];
+    $hand = 0;
+    $_SESSION['currentHand'] = $hand;
 
     //Make sure bet is not out of bounds
-    if($_SESSION['bet'] < 100) $_SESSION['bet'] = 100;
-    elseif($_SESSION['bet'] > $_SESSION['maxbet']) $_SESSION['bet'] = $_SESSION['maxbet'];
+    if($_SESSION['bets'][$hand] < 100) $_SESSION['bets'][$hand] = 100;
+    elseif($_SESSION['bets'][$hand] > $_SESSION['maxbet']) $_SESSION['bets'][$hand] = $_SESSION['maxbet'];
 
     //Start round by taking money from player
-    $_SESSION['playerMoney'] -= $_SESSION['bet'];
-    $_SESSION['account'] += $_SESSION['bet'];
+    adjustMoney($hand);
 
     createDeck();
     playerDraw();
@@ -70,10 +72,10 @@ function init(){
 
     if($_SESSION['dealerSum'] === 21) $_SESSION['dealerBlackjack'] = True;
     //Player got blackjack, end the game
-    if($_SESSION['playerSum'][0] === 21){
+    if($_SESSION['playerSum'][$hand] === 21){
         $_SESSION['playerBlackjack'] = True;
         $_SESSION['endGame'] = True;
-        $_SESSION['handDone'][0] = True;
+        $_SESSION['handDone'][$hand] = True;
         printCards();
         endOfGame();
     }
@@ -82,7 +84,6 @@ function init(){
         //Prevents refresh of page to instantly start a new game
         //header('Location: index.php');
     }
-    echo '<pre>'.print_r($_SESSION['playerCards']).'</pre>';
 }
 
 /**
@@ -103,8 +104,30 @@ function stand(){
     calculate();
     $_SESSION['handDone'][$_SESSION['currentHand']] = True;
     if(!endGameCheck()) {
-        printCards();
         $_SESSION['currentHand']++;
+        printCards();
+    }
+}
+
+/**
+ * Handles "split" press
+ */
+function splitHand(){
+    $hand = $_SESSION['currentHand'];
+    if($hand < $_SESSION['maxHands'] - 1){
+        //Move second card from current hand to a new one
+        $card = $_SESSION['playerCards'][$hand][1];
+        array_splice($_SESSION['playerCards'][$hand], 1, 1);
+        $_SESSION['playerCards'][$hand + 1][0] = $card;
+
+        //Register new bet
+        $_SESSION['bets'][$hand + 1] = $_SESSION['bets'][$hand];
+        adjustMoney($hand + 1);
+
+        //Draw new card on current hand
+        playerDraw();
+        calculate();
+        printCards();
     }
 }
 
@@ -160,7 +183,7 @@ function playerDraw(){
     $hand = $_SESSION['currentHand'];
     $numberOfCards = count($_SESSION['playerCards'][$hand]);
     if($hand === 0)
-        $count = $numberOfCards < 2 ? 2 : 1;
+        $count = $numberOfCards === 0 ? 2 : 1;
 
     for($i = 0; $i < $count; $i++){
         //Draw random card
@@ -171,8 +194,11 @@ function playerDraw(){
         //Remove from deck
         array_splice($_SESSION['deck'], $index, 1);
     }
-    if($numberOfCards + $count === 2 && $hand !== 3){
-        if($_SESSION['playerCards'][$hand][0]['gameValue'] === $_SESSION['playerCards'][$hand][1]['gameValue'])
+    if($numberOfCards + $count === 2
+        && $hand !== 3
+        && $_SESSION['playerCards'][$hand][0]['gameValue'] === $_SESSION['playerCards'][$hand][1]['gameValue']
+        && !$_SESSION['splitAvailable'][$hand]){
+
             $_SESSION['splitAvailable'][$hand] = True;
     }
     elseif($_SESSION['splitAvailable'][$hand]) $_SESSION['splitAvailable'][$hand] = False;
@@ -269,20 +295,24 @@ function endOfGame(){
 }
 
 /**
- */
-/**
  * Adjusts money based on result
  * @param int $hand Which hands result to adjust for
  */
 function adjustMoney($hand){
-    $factor = 0;
-    if($_SESSION['result'][$hand] === 'Push') $factor = 1;
-    elseif($_SESSION['result'][$hand] === 'Player') $factor = 2;
-    elseif($_SESSION['result'][$hand] === 'Blackjack') $factor = 2.5;
-    elseif($_SESSION['result'][$hand] === 'Charlie') $factor = 3;
+    if($_SESSION['endGame']){
+        $factor = 0;
+        if($_SESSION['result'][$hand] === 'Push') $factor = 1;
+        elseif($_SESSION['result'][$hand] === 'Player') $factor = 2;
+        elseif($_SESSION['result'][$hand] === 'Blackjack') $factor = 2.5;
+        elseif($_SESSION['result'][$hand] === 'Charlie') $factor = 3;
 
-    $_SESSION['playerMoney'] += $_SESSION['bet'] * $factor;
-    $_SESSION['account'] -= $_SESSION['bet'] * $factor;
+        $_SESSION['playerMoney'] += $_SESSION['bets'][$hand] * $factor;
+        $_SESSION['account'] -= $_SESSION['bets'][$hand] * $factor;
+    }
+    else{
+        $_SESSION['playerMoney'] -= $_SESSION['bets'][$hand];
+        $_SESSION['account'] += $_SESSION['bets'][$hand];
+    }
 }
 
 /**
@@ -305,7 +335,7 @@ function calculate(){
 
     //Calculate all hands
     for($hand = 0; $hand < count($_SESSION['playerCards']); $hand++){
-        $playerSum = $_SESSION['playerSum'][$hand];
+        /*$playerSum = $_SESSION['playerSum'][$hand];
         $playerAce = $_SESSION['playerAce'][$hand];
         $playerCalculated = $_SESSION['playerCardsCalculated'][$hand];
 
@@ -316,7 +346,17 @@ function calculate(){
 
         $_SESSION['playerSum'][$hand] = $playerSum;
         $_SESSION['playerAce'][$hand] = $playerAce;
-        $_SESSION['playerCardsCalculated'][$hand] = $playerCalculated;
+        $_SESSION['playerCardsCalculated'][$hand] = $playerCalculated;*/
+
+        $playerSum = 0;
+        $playerAce = False;
+
+        for($i = 0; $i < count($_SESSION['playerCards'][$hand]); $i++){
+            $card = $_SESSION['playerCards'][$hand][$i];
+            calculateCard($card, $playerAce, $playerSum);
+        }
+
+        $_SESSION['playerSum'][$hand] = $playerSum;
     }
 }
 
@@ -364,6 +404,7 @@ function printCards(){
     $result .= '<div id="cards">';
     $result .= '<div id="dealerCards">';
     $result .= '<h4>Dealer\'s cards</h4>';
+    $result .= '<div class="hand">';
     for($i = 0; $i < $count; $i++){
         $card = $_SESSION['dealerCards'][$i];
         $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" />';
@@ -371,13 +412,14 @@ function printCards(){
     if($count > 1)
         $result .= '<br />Sum: '.$_SESSION['dealerSum'];
     $result .= '</div>';
+    $result .= '</div>';
 
 
     //Print player cards, always print all
     $result .= '<div id="playerCards">';
     $result .= '<h4>Your cards</h4>';
     for($hand = 0; $hand < count($_SESSION['playerCards']); $hand++){
-        $result .= '<div id="hand-'.$hand.'" style="display:inline-block;">';
+        $result .= '<div id="hand-'.$hand.'" class="hand" style="display:inline-block;">';
         for($i = 0; $i < count($_SESSION['playerCards'][$hand]); $i++){
             $card = $_SESSION['playerCards'][$hand][$i];
             $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" />';
@@ -403,8 +445,8 @@ function printCards(){
             $result .= '<div id="buttons">';
             $result .= '<button type="submit" name="hit" id="hit" value="hit" title="Get another card.">Hit</button>
                 <button type="submit" name="stand" id="stand" value="stand" title="End the game.">Stand</button>';
-            if($_SESSION['splitAvailable'][$hand]) {
-                $result .= '<button type="submit" name="split" id="split" value="split" title="Let\'s you take two cards of same value, and split them into to separate hands.">Split</button>';
+            if(isset($_SESSION['splitAvailable'][$hand]) && $_SESSION['splitAvailable'][$hand]) {
+                $result .= '<button type="submit" name="split" id="split" value="split" title="Let\'s you take two cards of same value, and split them into to separate hands. You also have to place another bet on the new hand, equal to your original bet.">Split</button>';
             }
             $result .= '</div>';
         }
@@ -413,7 +455,7 @@ function printCards(){
     $result .= '</div>';
     $result .= '</div>';
     if($_SESSION['endGame']){
-        $result .= '<input type="number" id="bet" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['bet'].'"/>';
+        $result .= '<input type="number" id="bet" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
         $result .= '<button type="submit" name="again" id="again" value="again">Play again</button>';
     }
     $result .= '</form>';

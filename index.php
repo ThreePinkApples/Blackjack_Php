@@ -17,6 +17,7 @@ if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 1000000;
 
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
+if(!isset($_SESSION['maxHands'])) $_SESSION['maxHands'] = 4;
 
 
 $owner = $_SESSION['owner'];
@@ -37,8 +38,10 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<section id="info" class="game-section">
     <div id="welcome">
         <p>Welcome to <?php echo $owner ?>'s blackjack! This casino has <?php echo '$'.$account ?> left.</p>
     </div>
@@ -67,6 +70,7 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
     </div>
     <br />
     <a href="cp.php" target="_blank">Controllpanel</a>
+</section>
 <?php
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -80,6 +84,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 if(!$_SESSION['playing']) {
 //Not in a game, section
 ?>
+<section id="startGame" class="game-section">
     <form method="POST">
         <div>
             <p>You have <?php echo '$'.$playerMoney ?> </p>
@@ -96,15 +101,19 @@ if(!$_SESSION['playing']) {
             <input type="submit" name="start" id="start" value="Play!"/>
         </div>
     </form>
+</section>
 
 <?php
 }
 else {
-    //echo $_POST['bet'];
     include('blackjack.php');
-    echo $_SESSION['printedCards'];
 ?>
-    <h5>You money: <?php echo '$'.$_SESSION['playerMoney'] ?></h5>
+    <section id="game" class="game-section">
+        <?php echo $_SESSION['printedCards']; ?>
+        <div id="money">
+            <h5>You money: <?php echo '$'.$_SESSION['playerMoney'] ?></h5>
+        </div>
+    </section>
 <?php
 }
 ?>
