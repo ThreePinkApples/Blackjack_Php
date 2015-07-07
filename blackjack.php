@@ -417,7 +417,7 @@ function printCards(){
     if($_SESSION['endGame']){
         $count = count($_SESSION['dealerCards']);
     }
-    $result .= '<form method="POST">';
+    $result .= '<form method="POST" onsubmit="cripple();">';
     $result .= '<div id="cards">';
     $result .= '<div id="dealerCards">';
     $result .= '<h4>Dealer\'s cards</h4>';

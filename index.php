@@ -40,7 +40,8 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
 </head>
 <body>
 <section id="info" class="game-section">
