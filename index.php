@@ -88,7 +88,7 @@ if(!$_SESSION['playing']) {
 //Not in a game, section
 ?>
 <section id="startGame" class="game-section">
-    <form method="POST">
+    <form method="POST" onsubmit="cripple();">
         <div>
             <p>You have <?php echo '$'.$playerMoney ?> </p>
             <span>Bet: $</span>
