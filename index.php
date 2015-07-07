@@ -17,7 +17,7 @@ if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 1000000;
 
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
-if(!isset($_SESSION['maxHands'])) $_SESSION['maxHands'] = 4;
+if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
 
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
 
@@ -30,6 +30,7 @@ $size = $_SESSION['size'];
 $maxbet = $_SESSION['maxbet'];
 $account = $_SESSION['account'];
 $playerMoney = $_SESSION['playerMoney'];
+$maxSplits = $_SESSION['maxSplits'];
 
 if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
@@ -63,6 +64,10 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
             echo '<li title="The number of decks may alter your winning chance.">';
             if ($size > 1) echo 'This casino uses ' . $size . ' decks</li>';
             else echo 'This casino uses 1 deck</li>';
+
+            echo '<li title="If the two first cards in a hand have equal value it legal to split those two cards into separate hands with separat bets and results">';
+            if($maxSplits > 1 || $maxSplits < 1) echo 'You are allowed to split ' . $maxSplits . ' times</li>';
+            else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
             ?>
         </ul>
     </div>

@@ -13,6 +13,9 @@ $minMaxbet = 1000000;
 $maxSize = 5;
 $minSize = 1;
 
+$minSplits = 0;
+$maxSplits = 3;
+
 if(isset($_POST['save'])){
     $_SESSION['soft17'] = isset($_POST['soft17']) ? $_POST['soft17'] : False;
     $_SESSION['fiveCharlie'] = isset($_POST['charlie']) ? $_POST['charlie'] : False;
@@ -31,6 +34,13 @@ if(isset($_POST['save'])){
         $_SESSION['maxbet'] = $minMaxbet;
     else
         $_SESSION['maxbet'] = $_POST['maxbet'];
+
+    if($_POST['maxSplits'] > $maxSplits)
+        $_SESSION['maxSplits'] = $maxSplits;
+    elseif($_POST['maxSplits'] < $minSplits)
+        $_SESSION['maxSplits'] = $minSplits;
+    else
+        $_SESSION['maxSplits'] = $_POST['maxSplits'];
 }
 
 ?>
@@ -64,6 +74,10 @@ if(isset($_POST['save'])){
 
     <div id="maxbet">
         <input type="number" name="maxbet" min="<?php echo $minMaxbet ?>" max="<?php echo $maxMaxbet ?>" value="<?php echo isset($_SESSION['maxbet']) ? $_SESSION['maxbet'] : '1000000' ?>" /> Max amount player can bet.
+    </div>
+
+    <div id="maxSplits">
+        <input type="number" name="maxSplits" min="<?php echo $minSplits ?>" max="<?php echo $maxSplits ?>" value="<?php echo isset($_SESSION['maxSplits']) ? $_SESSION['maxSplits'] : '3' ?>" /> Max number of splits allowed
     </div>
 
     <button type="submit" name="save" id="save">Save</button>

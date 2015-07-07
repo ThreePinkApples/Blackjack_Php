@@ -42,24 +42,24 @@ function init(){
     //$_SESSION['playerCardsCalculated'] = [0,0,0,0]; //How many cards have already been calculated
     $_SESSION['dealerCardsCalculated'] = 0; //How many cards have already been calculated
 
-    $_SESSION['playerAce'] = [False, False, False, False]; //Player has ace counting as 11
+    $_SESSION['playerAce'] = [False]; //Player has ace counting as 11
     $_SESSION['dealerAce'] = False; //Dealer has ace counting as 11
 
     //Can only have blackjack on first hand
     $_SESSION['playerBlackjack'] = False; //Player has blackjack or not
     $_SESSION['dealerBlackjack'] = False; //Dealer has blackjack or not
 
-    $_SESSION['charlie'] = [False, False, False, False]; //Player has five-card charlie or not
+    $_SESSION['charlie'] = [False]; //Player has five-card charlie or not
     //Only three here since player can only split 3 times
-    $_SESSION['splitAvailable'] = [False, False, False]; //Player can split
+    $_SESSION['splitAvailable'] = [False]; //Player can split
 
-    $_SESSION['handDone'] = [False, False, False, False];
-    $_SESSION['endGame'] = False;
+    $_SESSION['handDone'] = [False]; //Keeps track of which hands are done
+    $_SESSION['endGame'] = False; //Game is ending
 
-    $_SESSION['playerSum'] = [0,0,0,0];
-    $_SESSION['dealerSum'] = 0;
+    $_SESSION['playerSum'] = [0]; //Keeps track of sum of every hand
+    $_SESSION['dealerSum'] = 0; //Dealer sum
     $_SESSION['bets'][0] = $_POST['bet'];
-    $_SESSION['originalBet'] = $_POST['bet'];
+    $_SESSION['originalBet'] = $_POST['bet']; //Store the original bet, in case of doubling
     $hand = 0;
     $_SESSION['currentHand'] = $hand;
 
@@ -116,8 +116,12 @@ function stand(){
     }
 }
 
+/**
+ * Changes to next hand
+ */
 function nextHand(){
     $_SESSION['currentHand']++;
+
     playerDraw();
     calculate();
     endHandCheck();
@@ -128,11 +132,21 @@ function nextHand(){
  */
 function splitHand(){
     $hand = $_SESSION['currentHand'];
-    if($hand < $_SESSION['maxHands'] - 1){
+    if($hand < $_SESSION['maxSplits']){
         //Move second card from current hand to a new one
         $card = $_SESSION['playerCards'][$hand][1];
         array_splice($_SESSION['playerCards'][$hand], 1, 1);
         $_SESSION['playerCards'][$hand + 1][0] = $card;
+
+
+        //Initialize values
+        $_SESSION['playerAce'][$_SESSION['currentHand']+1] = False;
+        $_SESSION['charlie'][$_SESSION['currentHand']+1] = False;
+        //Can't split when on last hand
+        if($_SESSION['currentHand'] + 1 !== $_SESSION['maxSplits'])
+            $_SESSION['splitAvailable'][$_SESSION['currentHand']+1] = False;
+        $_SESSION['handDone'][$_SESSION['currentHand']+1] = False;
+        $_SESSION['playerSum'][$_SESSION['currentHand']+1] = 0;
 
         //Register new bet
         $_SESSION['bets'][$hand + 1] = $_SESSION['bets'][$hand];
@@ -210,13 +224,13 @@ function playerDraw(){
         array_splice($_SESSION['deck'], $index, 1);
     }
     if($numberOfCards + $count === 2
-        && $hand < $_SESSION['maxHands'] -1
+        && $hand < $_SESSION['maxSplits']
         && $_SESSION['playerCards'][$hand][0]['gameValue'] === $_SESSION['playerCards'][$hand][1]['gameValue']
         && !$_SESSION['splitAvailable'][$hand]){
 
             $_SESSION['splitAvailable'][$hand] = True;
     }
-    elseif($hand < $_SESSION['maxHands'] -1 &&
+    elseif($hand < $_SESSION['maxSplits'] -1 &&
         $_SESSION['splitAvailable'][$hand])
             $_SESSION['splitAvailable'][$hand] = False;
 }
@@ -504,6 +518,22 @@ function createDeck(){
             $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
             $counter++;
         }
+        /*for($j = 1; $j <= 13; $j++){
+            $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => 10];
+            $counter++;
+        }
+        for($j = 1; $j <= 13; $j++){
+            $_SESSION['deck'][$counter] = ['color' => 'd', 'value' => $j, 'gameValue' => 10];
+            $counter++;
+        }
+        for($j = 1; $j <= 13; $j++){
+            $_SESSION['deck'][$counter] = ['color' => 'c', 'value' => $j, 'gameValue' => 10];
+            $counter++;
+        }
+        for($j = 1; $j <= 13; $j++){
+            $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => 10];
+            $counter++;
+        }*/
     }
 
     shuffle($_SESSION['deck']);
