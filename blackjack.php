@@ -172,6 +172,16 @@ function doubleHand(){
         if(count($_SESSION['playerCards']) > 1 && !$_SESSION['doubleAfterSplit'])
             $double = False;
 
+        if($_SESSION['doubleType'] != 'any'){
+            if($_SESSION['doubleType'] === '9-11'
+                && ($_SESSION['playerSum'][$hand] < 9 || $_SESSION['playerSum'][$hand] > 11))
+                $double = False;
+            elseif($_SESSION['doubleType'] === '10-11'
+                    && ($_SESSION['playerSum'][$hand] < 10 || $_SESSION['playerSum'][$hand] > 11))
+                $double = False;
+        }
+
+
         if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
             $double = False;
             $_SESSION['blackjackError'] = 'You can\'t afford to double';
@@ -519,6 +529,15 @@ function printCards(){
                 //If player has split but double after split is not allowed, double is not allowed (duuh)
                 if(count($_SESSION['playerCards']) > 1 && !$_SESSION['doubleAfterSplit'])
                     $double = False;
+
+                if($_SESSION['doubleType'] !== 'any'){
+                    if($_SESSION['doubleType'] === '9-11'
+                        && ($_SESSION['playerSum'][$hand] < 9 || $_SESSION['playerSum'][$hand] > 11))
+                        $double = False;
+                    elseif($_SESSION['doubleType'] === '10-11'
+                        && ($_SESSION['playerSum'][$hand] < 10 || $_SESSION['playerSum'][$hand] > 11))
+                        $double = False;
+                }
 
                 if($double){
                     $result .= '<button type="submit" name="double" id="double" value="double" title="Double your current bet on this hand, this will give you one more card, and then end this hand.">Double</button>';

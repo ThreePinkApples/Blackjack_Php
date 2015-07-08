@@ -43,6 +43,7 @@ if(isset($_POST['save'])){
         $_SESSION['maxSplits'] = $_POST['maxSplits'];
 
     $_SESSION['double'] = isset($_POST['double']) ? $_POST['double'] : False;
+    $_SESSION['doubleType'] = $_POST['doubleType'];
     $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? $_POST['doubleAfterSplit'] : False;
 }
 
@@ -85,6 +86,14 @@ if(isset($_POST['save'])){
 
     <div id="double">
         <input type="checkbox" name="double" <?php echo isset($_SESSION['double']) && $_SESSION['double'] ? 'checked' : '' ?> /> Player can double.
+    </div>
+    <div id="doubleType">
+        <select name="doubleType">
+            <option value="any" <?php echo isset($_SESSION['doubleType']) && $_SESSION['doubleType'] === 'any' ? 'selected' : '' ?>>Any cards</option>
+            <option value="9-11" <?php echo isset($_SESSION['doubleType']) && $_SESSION['doubleType'] === '9-11' ? 'selected' : '' ?>>Only sums 9 - 11</option>
+            <option value="10-11" <?php echo isset($_SESSION['doubleType']) && $_SESSION['doubleType'] === '10-11' ? 'selected' : '' ?>>Only sums 10 - 11</option>
+        </select>
+        When a player can double
     </div>
 
     <div id="doubleAfterSplit">

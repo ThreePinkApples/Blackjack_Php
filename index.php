@@ -19,6 +19,7 @@ if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
 if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
 if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
+if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = 'any';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
 
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
@@ -35,6 +36,7 @@ $account = $_SESSION['account'];
 $playerMoney = $_SESSION['playerMoney'];
 $maxSplits = $_SESSION['maxSplits'];
 $double = $_SESSION['double'];
+$doubleType = $_SESSION['doubleType'];
 $doubleAfterSplit = $_SESSION['doubleAfterSplit'];
 
 if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
@@ -75,7 +77,11 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
             else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
 
             echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. This will give you one more card and then the hand ends.">';
-            if($double) echo 'You can double down.</li>';
+            if($double){
+                if($doubleType === 'any') echo 'You can double down on any cards.</li>';
+                elseif($doubleType === '9-11') echo 'You can only double on sums between 9 and 11</li>';
+                elseif($doubleType === '10-11') echo 'You can only double on sums between 10 and 11</li>';
+            }
             else echo 'You can\'t double down.</li>';
 
             if($double){
