@@ -185,8 +185,12 @@ function doubleHand(){
             $_SESSION['bets'][$hand] += $_SESSION['originalBet'];
             adjustMoney();
             $_SESSION['splitAvailable'][$hand] = False;
+            playerDraw();
+            stand();
         }
-        printCards();
+        else{
+            printCards();
+        }
     }
 }
 
@@ -517,7 +521,7 @@ function printCards(){
                     $double = False;
 
                 if($double){
-                    $result .= '<button type="submit" name="double" id="double" value="double" title="Double your current bet on this hand, can be done only once. You can\'t split after double, but you can double after split, if the casino allows it, check the rules in the top">Double</button>';
+                    $result .= '<button type="submit" name="double" id="double" value="double" title="Double your current bet on this hand, this will give you one more card, and then end this hand.">Double</button>';
                 }
             }
             $result .= '</div>';

@@ -74,7 +74,7 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
             if($maxSplits > 1 || $maxSplits < 1) echo 'You are allowed to split ' . $maxSplits . ' times</li>';
             else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
 
-            echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. Can be done only once and you can\'t split after a doubling.">';
+            echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. This will give you one more card and then the hand ends.">';
             if($double) echo 'You can double down.</li>';
             else echo 'You can\'t double down.</li>';
 
