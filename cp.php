@@ -10,7 +10,7 @@ session_start();
 $maxMaxbet = 80000000;
 $minMaxbet = 1000000;
 
-$maxSize = 5;
+$maxSize = 6;
 $minSize = 1;
 
 $minSplits = 0;
@@ -54,51 +54,53 @@ if(isset($_POST['save'])){
 <!DOCTYPE html>
 <html>
 <head>
-
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="css/blackjack.css">
 </head>
 <body>
-
+<h2>Blackjack Settings</h2>
 <form method="POST">
 
-    <div id="soft17">
+    <div id="soft17" class="blackjack-option">
         <input type="checkbox" name="soft17" id="soft17" <?php echo isset($_SESSION['soft17']) && $_SESSION['soft17'] ? 'checked' : '' ?> /> Allow dealer to draw on soft 17.
     </div>
 
-    <div id="charlie">
+    <div id="charlie" class="blackjack-option">
         <input type="checkbox" name="charlie" <?php echo isset($_SESSION['fiveCharlie']) && $_SESSION['fiveCharlie'] ? 'checked' : '' ?> /> Let player win on a "Five-card Charlie".
     </div>
 
-    <div id="message">
+    <div id="message" class="blackjack-option">
         <label>Message to be shown to players</label>
         <br />
         <textarea name="message"><?php echo isset($_SESSION['message']) ? $_SESSION['message'] : '' ?></textarea>
     </div>
 
-    <div id="size">
+    <div id="size" class="blackjack-option">
         <input type="number" name="size" min="<?php echo $minSize ?>" max="<?php echo $maxSize ?>" <?php echo isset($_SESSION['size']) ? 'value="'.$_SESSION['size'].'"' : '' ?> /> Number of decks.
     </div>
 
-    <div id="maxbet">
+    <div id="maxbet" class="blackjack-option">
         <input type="number" name="maxbet" min="<?php echo $minMaxbet ?>" max="<?php echo $maxMaxbet ?>" value="<?php echo isset($_SESSION['maxbet']) ? $_SESSION['maxbet'] : '1000000' ?>" /> Max amount player can bet.
     </div>
 
-    <div id="maxSplits">
+    <div id="maxSplits" class="blackjack-option">
         <input type="number" name="maxSplits" min="<?php echo $minSplits ?>" max="<?php echo $maxSplits ?>" value="<?php echo isset($_SESSION['maxSplits']) ? $_SESSION['maxSplits'] : '3' ?>" /> Max number of splits allowed.
     </div>
 
-    <div id="aceHitSplit">
+    <div id="aceHitSplit" class="blackjack-option">
         <input type="checkbox" name="aceHitSplit" <?php echo isset($_SESSION['aceHitSplit']) && $_SESSION['aceHitSplit'] ? 'checked' : '' ?> /> Player can hit after splitting aces.
     </div>
 
-    <div id="aceReSplit">
+    <div id="aceReSplit" class="blackjack-option">
         <input type="checkbox" name="aceReSplit" <?php echo isset($_SESSION['aceReSplit']) && $_SESSION['aceReSplit'] ? 'checked' : '' ?> /> Player can re-split aces (other cards can always be re-splitted).
     </div>
 
-    <div id="double">
+    <div id="double" class="blackjack-option">
         <input type="checkbox" name="double" <?php echo isset($_SESSION['double']) && $_SESSION['double'] ? 'checked' : '' ?> /> Player can double.
     </div>
 
-    <div id="doubleType">
+    <div id="doubleType" class="blackjack-option">
         <select name="doubleType">
             <option value="any" <?php echo isset($_SESSION['doubleType']) && $_SESSION['doubleType'] === 'any' ? 'selected' : '' ?>>Any cards</option>
             <option value="9-11" <?php echo isset($_SESSION['doubleType']) && $_SESSION['doubleType'] === '9-11' ? 'selected' : '' ?>>Only sums 9 - 11</option>
@@ -107,11 +109,13 @@ if(isset($_POST['save'])){
         When a player can double
     </div>
 
-    <div id="doubleAfterSplit">
+    <div id="doubleAfterSplit" class="blackjack-option">
         <input type="checkbox" name="doubleAfterSplit" <?php echo isset($_SESSION['doubleAfterSplit']) && $_SESSION['doubleAfterSplit'] ? 'checked' : '' ?> /> Player can double after split.
     </div>
 
     <button type="submit" name="save" id="save">Save</button>
+    <br />
+    <a href="/index.php">To game</a>
 </form>
 
 </body>

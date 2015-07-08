@@ -9,11 +9,11 @@ session_start();
 
 //Test data
 $_SESSION['owner'] = 'aerandir92';
-if(!isset($_SESSION['fiveCharlie'])) $_SESSION['fiveCharlie'] = True;
+if(!isset($_SESSION['fiveCharlie'])) $_SESSION['fiveCharlie'] = False;
 if(!isset($_SESSION['soft17'])) $_SESSION['soft17'] = False;
 if(!isset($_SESSION['message'])) $_SESSION['message'] = "Have fun!";
 if(!isset($_SESSION['size'])) $_SESSION['size'] = 2;
-if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 1000000;
+if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 10000000;
 
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
@@ -21,7 +21,7 @@ if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
 if(!isset($_SESSION['aceHitSplit'])) $_SESSION['aceHitSplit'] = False;
 if(!isset($_SESSION['aceReSplit'])) $_SESSION['aceReSplit'] = True;
 if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
-if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = 'any';
+if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = '9-11';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
 
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
@@ -52,8 +52,8 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/blackjack.css">
+    <script src="js/blackjack.js"></script>
 </head>
 <body>
 <section id="info" class="game-section">
