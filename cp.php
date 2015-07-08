@@ -41,6 +41,9 @@ if(isset($_POST['save'])){
         $_SESSION['maxSplits'] = $minSplits;
     else
         $_SESSION['maxSplits'] = $_POST['maxSplits'];
+
+    $_SESSION['double'] = isset($_POST['double']) ? $_POST['double'] : False;
+    $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? $_POST['doubleAfterSplit'] : False;
 }
 
 ?>
@@ -59,7 +62,7 @@ if(isset($_POST['save'])){
     </div>
 
     <div id="charlie">
-        <input type="checkbox" name="charlie" <?php echo isset($_SESSION['fiveCharlie']) && $_SESSION['fiveCharlie'] ? 'checked' : '' ?>/> Let player win on a "Five-card Charlie".
+        <input type="checkbox" name="charlie" <?php echo isset($_SESSION['fiveCharlie']) && $_SESSION['fiveCharlie'] ? 'checked' : '' ?> /> Let player win on a "Five-card Charlie".
     </div>
 
     <div id="message">
@@ -77,7 +80,15 @@ if(isset($_POST['save'])){
     </div>
 
     <div id="maxSplits">
-        <input type="number" name="maxSplits" min="<?php echo $minSplits ?>" max="<?php echo $maxSplits ?>" value="<?php echo isset($_SESSION['maxSplits']) ? $_SESSION['maxSplits'] : '3' ?>" /> Max number of splits allowed
+        <input type="number" name="maxSplits" min="<?php echo $minSplits ?>" max="<?php echo $maxSplits ?>" value="<?php echo isset($_SESSION['maxSplits']) ? $_SESSION['maxSplits'] : '3' ?>" /> Max number of splits allowed.
+    </div>
+
+    <div id="double">
+        <input type="checkbox" name="double" <?php echo isset($_SESSION['double']) && $_SESSION['double'] ? 'checked' : '' ?> /> Player can double.
+    </div>
+
+    <div id="doubleAfterSplit">
+        <input type="checkbox" name="doubleAfterSplit" <?php echo isset($_SESSION['doubleAfterSplit']) && $_SESSION['doubleAfterSplit'] ? 'checked' : '' ?> /> Player can double after split.
     </div>
 
     <button type="submit" name="save" id="save">Save</button>

@@ -13,6 +13,7 @@ if($_SESSION['newRound']) init();
 elseif(isset($_POST['hit'])) hit();
 elseif(isset($_POST['stand'])) stand();
 elseif(isset($_POST['split'])) splitHand();
+elseif(isset($_POST['double'])) doubleHand();
 
 /**
  * Initializes a new round
@@ -155,6 +156,36 @@ function splitHand(){
         //Draw new card on current hand
         playerDraw();
         calculate();
+        printCards();
+    }
+}
+
+/**
+ * Handles "double" press
+ * Doubles the bet on current hand, as long as it haven't been double already
+ */
+function doubleHand(){
+    $hand = $_SESSION['currentHand'];
+    if($_SESSION['double'] && $_SESSION['bets'][$hand] === $_SESSION['originalBet']){
+        $double = True;
+        //If player has split but double after split is not allowed, double is not allowed (duuh)
+        if(count($_SESSION['playerCards']) > 1 && !$_SESSION['doubleAfterSplit'])
+            $double = False;
+
+        if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
+            $double = False;
+            $_SESSION['blackjackError'] = 'You can\'t afford to double';
+        }
+        elseif($_SESSION['maxbet'] < $_SESSION['originalBet'] * 2){
+            $double = False;
+            $_SESSION['blackjackError'] = 'You can\'t double when total bet will exceed max bet';
+        }
+
+        if($double){
+            $_SESSION['bets'][$hand] += $_SESSION['originalBet'];
+            adjustMoney();
+            $_SESSION['splitAvailable'][$hand] = False;
+        }
         printCards();
     }
 }
@@ -329,7 +360,7 @@ function endOfGame(){
  * Adjusts money based on result
  * @param int $hand Which hands result to adjust for
  */
-function adjustMoney($hand){
+function adjustMoney($hand = 0){
     if($_SESSION['endGame']){
         $factor = 0;
         if($_SESSION['result'][$hand] === 'Push') $factor = 1;
@@ -341,8 +372,8 @@ function adjustMoney($hand){
         $_SESSION['account'] -= $_SESSION['bets'][$hand] * $factor;
     }
     else{
-        $_SESSION['playerMoney'] -= $_SESSION['bets'][$hand];
-        $_SESSION['account'] += $_SESSION['bets'][$hand];
+        $_SESSION['playerMoney'] -= $_SESSION['originalBet'];
+        $_SESSION['account'] += $_SESSION['originalBet'];
     }
 }
 
@@ -478,6 +509,16 @@ function printCards(){
                 <button type="submit" name="stand" id="stand" value="stand" title="End the game.">Stand</button>';
             if(isset($_SESSION['splitAvailable'][$hand]) && $_SESSION['splitAvailable'][$hand]) {
                 $result .= '<button type="submit" name="split" id="split" value="split" title="Let\'s you take two cards of same value, and split them into to separate hands. You also have to place another bet on the new hand, equal to your original bet.">Split</button>';
+            }
+            if($_SESSION['double'] && $_SESSION['bets'][$hand] === $_SESSION['originalBet'] && count($_SESSION['playerCards'][$hand]) === 2){
+                $double = True;
+                //If player has split but double after split is not allowed, double is not allowed (duuh)
+                if(count($_SESSION['playerCards']) > 1 && !$_SESSION['doubleAfterSplit'])
+                    $double = False;
+
+                if($double){
+                    $result .= '<button type="submit" name="double" id="double" value="double" title="Double your current bet on this hand, can be done only once. You can\'t split after double, but you can double after split, if the casino allows it, check the rules in the top">Double</button>';
+                }
             }
             $result .= '</div>';
         }

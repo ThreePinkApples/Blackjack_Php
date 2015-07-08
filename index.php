@@ -18,8 +18,11 @@ if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 1000000;
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
 if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
+if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
+if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
 
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
+
 
 
 $owner = $_SESSION['owner'];
@@ -31,6 +34,8 @@ $maxbet = $_SESSION['maxbet'];
 $account = $_SESSION['account'];
 $playerMoney = $_SESSION['playerMoney'];
 $maxSplits = $_SESSION['maxSplits'];
+$double = $_SESSION['double'];
+$doubleAfterSplit = $_SESSION['doubleAfterSplit'];
 
 if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
@@ -68,6 +73,17 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
             echo '<li title="If the two first cards in a hand have equal value it legal to split those two cards into separate hands with separat bets and results">';
             if($maxSplits > 1 || $maxSplits < 1) echo 'You are allowed to split ' . $maxSplits . ' times</li>';
             else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
+
+            echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. Can be done only once and you can\'t split after a doubling.">';
+            if($double) echo 'You can double down.</li>';
+            else echo 'You can\'t double down.</li>';
+
+            if($double){
+                echo '<li title="After you have split your current hand, you can also double it after receiving the second card.">';
+                if($doubleAfterSplit) echo 'You can double down after a split</li>';
+                else echo 'You can\'t double down after a split</li>';
+            }
+
             ?>
         </ul>
     </div>
@@ -99,9 +115,9 @@ if(!$_SESSION['playing']) {
             <span>Bet: $</span>
             <input type="number" id="bet" name="bet" min="100" max="<?php echo $maxbet ?>" />
             <?php
-            if(isset($_SESSION['error'])) {
-                echo '<p>'.$_SESSION['error'].'</p>';
-                unset($_SESSION['error']);
+            if(isset($_SESSION['blackjackError'])) {
+                echo '<p>'.$_SESSION['blackjackError'].'</p>';
+                unset($_SESSION['blackjackError']);
             }
             ?>
         </div>
@@ -118,6 +134,14 @@ else {
 ?>
     <section id="game" class="game-section">
         <?php echo $_SESSION['printedCards']; ?>
+        <div id="errors">
+            <?php
+            if(isset($_SESSION['blackjackError'])) {
+                echo '<p>'.$_SESSION['blackjackError'].'</p>';
+                unset($_SESSION['blackjackError']);
+            }
+            ?>
+        </div>
         <div id="money">
             <h5>You money: <?php echo '$'.$_SESSION['playerMoney'] ?></h5>
         </div>
