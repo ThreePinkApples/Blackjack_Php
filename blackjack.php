@@ -30,7 +30,7 @@ function init(){
     if($_SESSION['playerMoney'] < $_POST['bet']){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
-        $_SESSION['error'] = 'Not enough money';
+        $_SESSION['blackjackError'] = 'Not enough money';
         header('Location: index.php');
         exit();
     }
