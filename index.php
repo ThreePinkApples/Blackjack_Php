@@ -18,6 +18,7 @@ if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 1000000;
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
 if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
+if(!isset($_SESSION['aceHitSplit'])) $_SESSION['aceHitSplit'] = False;
 if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
 if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = 'any';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
@@ -75,6 +76,10 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
             echo '<li title="If the two first cards in a hand have equal value it legal to split those two cards into separate hands with separat bets and results">';
             if($maxSplits > 1 || $maxSplits < 1) echo 'You are allowed to split ' . $maxSplits . ' times</li>';
             else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
+
+            echo '<li>';
+            if($_SESSION['aceHitSplit']) echo 'You can hit after splitting aces</li>';
+            else echo 'You can\'t hit after splitting aces. Splitting aces will cause an automatic end of round.</li>';
 
             echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. This will give you one more card and then the hand ends.">';
             if($double){

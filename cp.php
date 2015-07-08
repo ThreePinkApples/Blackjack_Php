@@ -42,6 +42,8 @@ if(isset($_POST['save'])){
     else
         $_SESSION['maxSplits'] = $_POST['maxSplits'];
 
+    $_SESSION['aceHitSplit'] = isset($_POST['aceHitSplit']) ? $_POST['aceHitSplit'] : False;
+
     $_SESSION['double'] = isset($_POST['double']) ? $_POST['double'] : False;
     $_SESSION['doubleType'] = $_POST['doubleType'];
     $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? $_POST['doubleAfterSplit'] : False;
@@ -84,9 +86,14 @@ if(isset($_POST['save'])){
         <input type="number" name="maxSplits" min="<?php echo $minSplits ?>" max="<?php echo $maxSplits ?>" value="<?php echo isset($_SESSION['maxSplits']) ? $_SESSION['maxSplits'] : '3' ?>" /> Max number of splits allowed.
     </div>
 
+    <div id="aceHitSplit">
+        <input type="checkbox" name="aceHitSplit" <?php echo isset($_SESSION['aceHitSplit']) && $_SESSION['aceHitSplit'] ? 'checked' : '' ?> /> Player can hit after splitting aces.
+    </div>
+
     <div id="double">
         <input type="checkbox" name="double" <?php echo isset($_SESSION['double']) && $_SESSION['double'] ? 'checked' : '' ?> /> Player can double.
     </div>
+
     <div id="doubleType">
         <select name="doubleType">
             <option value="any" <?php echo isset($_SESSION['doubleType']) && $_SESSION['doubleType'] === 'any' ? 'selected' : '' ?>>Any cards</option>

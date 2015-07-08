@@ -153,10 +153,20 @@ function splitHand(){
         $_SESSION['bets'][$hand + 1] = $_SESSION['bets'][$hand];
         adjustMoney($hand + 1);
 
-        //Draw new card on current hand
-        playerDraw();
-        calculate();
-        printCards();
+        if(!$_SESSION['aceHitSplit']
+            && $_SESSION['playerCards'][$hand][0]['gameValue'] === 1
+            && $card['gameValue'] === 1){
+            //Player is not allowed to hit after splitting aces, give cards and end round.
+            playerDraw();
+            stand();
+            stand();
+        }
+        else{
+            //Draw new card on current hand
+            playerDraw();
+            calculate();
+            printCards();
+        }
     }
 }
 
@@ -583,19 +593,19 @@ function createDeck(){
             $counter++;
         }
         /*for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => 10];
+            $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => 1];
             $counter++;
         }
         for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'd', 'value' => $j, 'gameValue' => 10];
+            $_SESSION['deck'][$counter] = ['color' => 'd', 'value' => $j, 'gameValue' => 1];
             $counter++;
         }
         for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'c', 'value' => $j, 'gameValue' => 10];
+            $_SESSION['deck'][$counter] = ['color' => 'c', 'value' => $j, 'gameValue' => 1];
             $counter++;
         }
         for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => 10];
+            $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => 1];
             $counter++;
         }*/
     }
