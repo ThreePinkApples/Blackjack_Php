@@ -12,7 +12,7 @@ $_SESSION['owner'] = 'aerandir92';
 if(!isset($_SESSION['fiveCharlie'])) $_SESSION['fiveCharlie'] = False;
 if(!isset($_SESSION['soft17'])) $_SESSION['soft17'] = False;
 if(!isset($_SESSION['message'])) $_SESSION['message'] = "Have fun!";
-if(!isset($_SESSION['size'])) $_SESSION['size'] = 2;
+if(!isset($_SESSION['size'])) $_SESSION['size'] = 4;
 if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 10000000;
 
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;

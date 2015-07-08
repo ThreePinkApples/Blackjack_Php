@@ -115,7 +115,7 @@ if(isset($_POST['save'])){
 
     <button type="submit" name="save" id="save">Save</button>
     <br />
-    <a href="/index.php">To game</a>
+    <a href="index.php">To game</a>
 </form>
 
 </body>
