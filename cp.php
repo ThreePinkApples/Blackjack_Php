@@ -43,7 +43,7 @@ if(isset($_POST['save'])){
         $_SESSION['maxSplits'] = $_POST['maxSplits'];
 
     $_SESSION['aceHitSplit'] = isset($_POST['aceHitSplit']) ? $_POST['aceHitSplit'] : False;
-
+    $_SESSION['aceReSplit'] = isset($_POST['aceReSplit']) ? $_POST['aceReSplit'] : False;
     $_SESSION['double'] = isset($_POST['double']) ? $_POST['double'] : False;
     $_SESSION['doubleType'] = $_POST['doubleType'];
     $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? $_POST['doubleAfterSplit'] : False;
@@ -88,6 +88,10 @@ if(isset($_POST['save'])){
 
     <div id="aceHitSplit">
         <input type="checkbox" name="aceHitSplit" <?php echo isset($_SESSION['aceHitSplit']) && $_SESSION['aceHitSplit'] ? 'checked' : '' ?> /> Player can hit after splitting aces.
+    </div>
+
+    <div id="aceReSplit">
+        <input type="checkbox" name="aceReSplit" <?php echo isset($_SESSION['aceReSplit']) && $_SESSION['aceReSplit'] ? 'checked' : '' ?> /> Player can re-split aces (other cards can always be re-splitted).
     </div>
 
     <div id="double">

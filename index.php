@@ -19,6 +19,7 @@ if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
 if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
 if(!isset($_SESSION['aceHitSplit'])) $_SESSION['aceHitSplit'] = False;
+if(!isset($_SESSION['aceReSplit'])) $_SESSION['aceReSplit'] = True;
 if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
 if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = 'any';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
@@ -36,6 +37,8 @@ $maxbet = $_SESSION['maxbet'];
 $account = $_SESSION['account'];
 $playerMoney = $_SESSION['playerMoney'];
 $maxSplits = $_SESSION['maxSplits'];
+$aceHitSplit = $_SESSIONo['aceHitSplit'];
+$aceReSplit = $_SESSION['aceReSplit'];
 $double = $_SESSION['double'];
 $doubleType = $_SESSION['doubleType'];
 $doubleAfterSplit = $_SESSION['doubleAfterSplit'];
@@ -77,9 +80,13 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
             if($maxSplits > 1 || $maxSplits < 1) echo 'You are allowed to split ' . $maxSplits . ' times</li>';
             else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
 
+            echo '<li title="Re-splitting aces are situations where you started with two aces, then split, then receive another ace on one of those hands">';
+            if($aceReSplit) echo 'You can re-split aces.</li>';
+            else echo 'You <b>can\'t</b> re-split aces.</li>';
+
             echo '<li>';
-            if($_SESSION['aceHitSplit']) echo 'You can hit after splitting aces</li>';
-            else echo 'You can\'t hit after splitting aces. Splitting aces will cause an automatic end of round.</li>';
+            if($aceHitSplit) echo 'You can hit after splitting aces</li>';
+            else echo 'You <b>can\'t</b> hit after splitting aces. Splitting aces will cause an automatic end of round.</li>';
 
             echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. This will give you one more card and then the hand ends.">';
             if($double){
@@ -87,12 +94,12 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
                 elseif($doubleType === '9-11') echo 'You can only double on sums between 9 and 11</li>';
                 elseif($doubleType === '10-11') echo 'You can only double on sums between 10 and 11</li>';
             }
-            else echo 'You can\'t double down.</li>';
+            else echo 'You <b>can\'t</b> double down.</li>';
 
             if($double){
                 echo '<li title="After you have split your current hand, you can also double it after receiving the second card.">';
                 if($doubleAfterSplit) echo 'You can double down after a split</li>';
-                else echo 'You can\'t double down after a split</li>';
+                else echo 'You <b>can\'t</b> double down after a split</li>';
             }
 
             ?>
