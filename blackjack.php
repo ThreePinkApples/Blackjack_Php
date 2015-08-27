@@ -601,7 +601,7 @@ function createDeck(){
     $counter = 0;
 
     for($i = 0; $i < $_SESSION['size']; $i++){
-        /*for($j = 1; $j <= 13; $j++){
+        for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
             $counter++;
         }
@@ -616,8 +616,8 @@ function createDeck(){
         for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
             $counter++;
-        }*/
-        for($j = 1; $j <= 13; $j++){
+        }
+        /*for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => 1];
             $counter++;
         }
@@ -632,7 +632,7 @@ function createDeck(){
         for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => 1];
             $counter++;
-        }
+        }*/
     }
 
     shuffle($_SESSION['deck']);
