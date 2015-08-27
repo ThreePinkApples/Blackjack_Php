@@ -16,6 +16,9 @@ $minSize = 1;
 $minSplits = 0;
 $maxSplits = 3;
 
+$minCharlie = 5;
+$maxCharlie = 10;
+
 if(isset($_POST['save'])){
     $_SESSION['soft17'] = isset($_POST['soft17']) ? $_POST['soft17'] : False;
     $_SESSION['fiveCharlie'] = isset($_POST['charlie']) ? $_POST['charlie'] : False;
@@ -42,11 +45,19 @@ if(isset($_POST['save'])){
     else
         $_SESSION['maxSplits'] = $_POST['maxSplits'];
 
+    if($_POST['charlieAmount'] > $maxCharlie)
+        $_SESSION['charlieAmount'] = $maxCharlie;
+    elseif($_POST['charlieAmount'] < $minCharlie)
+        $_SESSION['charlieAmount'] = $minCharlie;
+    else
+        $_SESSION['charlieAmount'] = $_POST['charlieAmount'];
+
     $_SESSION['aceHitSplit'] = isset($_POST['aceHitSplit']) ? $_POST['aceHitSplit'] : False;
     $_SESSION['aceReSplit'] = isset($_POST['aceReSplit']) ? $_POST['aceReSplit'] : False;
     $_SESSION['double'] = isset($_POST['double']) ? $_POST['double'] : False;
     $_SESSION['doubleType'] = $_POST['doubleType'];
     $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? $_POST['doubleAfterSplit'] : False;
+    $_SESSION['useCharlie'] = isset($_POST['useCharlie']) ? $_POST['useCharlie'] : False;
 }
 
 ?>
@@ -65,9 +76,11 @@ if(isset($_POST['save'])){
     <div id="soft17" class="blackjack-option">
         <input type="checkbox" name="soft17" id="soft17" <?php echo isset($_SESSION['soft17']) && $_SESSION['soft17'] ? 'checked' : '' ?> /> Allow dealer to draw on soft 17.
     </div>
-
-    <div id="charlie" class="blackjack-option">
-        <input type="checkbox" name="charlie" <?php echo isset($_SESSION['fiveCharlie']) && $_SESSION['fiveCharlie'] ? 'checked' : '' ?> /> Let player win on a "Five-card Charlie".
+    
+    <div id="charlieOptions" class="blackjack-option">
+        <input type="checkbox" name="useCharlie" <?php echo isset($_SESSION['useCharlie']) && $_SESSION['useCharlie'] ? 'checked' : '' ?> /> Activate Charlie rules.
+        <br />
+        <input type="number" name="charlieAmount" min="<?php echo $minCharlie ?>" max="<?php echo $maxCharlie ?>" value="<?php echo isset($_SESSION['charlieAmount']) ? $_SESSION['charlieAmount'] : '5' ?>" /> Number of cards needed to get Charlie.
     </div>
 
     <div id="message" class="blackjack-option">

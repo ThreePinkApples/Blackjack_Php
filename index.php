@@ -9,7 +9,8 @@ session_start();
 
 //Test data
 $_SESSION['owner'] = 'aerandir92';
-if(!isset($_SESSION['fiveCharlie'])) $_SESSION['fiveCharlie'] = False;
+if(!isset($_SESSION['useCharlie'])) $_SESSION['useCharlie'] = False;
+if(!isset($_SESSION['charlieAmount'])) $_SESSION['charlieAmount'] = 7;
 if(!isset($_SESSION['soft17'])) $_SESSION['soft17'] = False;
 if(!isset($_SESSION['message'])) $_SESSION['message'] = "Have fun!";
 if(!isset($_SESSION['size'])) $_SESSION['size'] = 4;
@@ -29,7 +30,8 @@ if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
 
 
 $owner = $_SESSION['owner'];
-$fiveCharlie = $_SESSION['fiveCharlie'];
+$useCharlie = $_SESSION['useCharlie'];
+$charlieAmount = $_SESSION['charlieAmount'];
 $soft17 = $_SESSION['soft17'];
 $message = $_SESSION['message'];
 $size = $_SESSION['size'];
@@ -63,10 +65,10 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
     <div id="settings">
         <ul>
             <li>You can't bet more than <?php echo '$'.$maxbet ?></li>
-            <li title="A Five-card Charlie is when you get 5 cards without going above a sum of 21.">
+            <li title="A Charlie is when you get certain number of cards without going above a sum of 21. Ranges from 5 cards to 10.">
             <?php
-            if ($fiveCharlie) echo 'You can win on a "Five-card Charlie". </li>';
-            else echo 'You <b>can\'t</b>win on a "Five-card Charlie". </li>';
+            if ($useCharlie) echo 'You can win on a Charlie with '.$charlieAmount.' cards.</li>';
+            else echo 'You <b>can\'t</b> win on a Charlie". </li>';
 
             echo '<li title="Soft 17 is when the sum is 17, but with an ace that counts as 11. Making it soft since it can also count as 7.">';
             if ($soft17) echo 'The dealer <b>have to</b> draw on a "soft 17". </li>';

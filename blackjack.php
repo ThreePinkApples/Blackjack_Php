@@ -51,8 +51,9 @@ function init(){
     $_SESSION['playerBlackjack'] = False; //Player has blackjack or not
     $_SESSION['dealerBlackjack'] = False; //Dealer has blackjack or not
 
-    $_SESSION['charlie'] = [False]; //Player has five-card charlie or not
-    //Only three here since player can only split 3 times
+    //Hand has charlie or not
+    $_SESSION['charlie'] = [False];
+
     $_SESSION['splitAvailable'] = [False]; //Player can split
     $_SESSION['aceSplit'] = [False];
 
@@ -243,9 +244,9 @@ function stop(){
  * Check if hand should end
  */
 function endHandCheck(){
-    //Five card charlie automatically ends hand
-    if(count($_SESSION['playerCards'][$_SESSION['currentHand']]) === 5
-        && $_SESSION['fiveCharlie']
+    //Charlie automatically ends hand
+    if(count($_SESSION['playerCards'][$_SESSION['currentHand']]) == $_SESSION['charlieAmount']
+        && $_SESSION['useCharlie']
         && $_SESSION['playerSum'][$_SESSION['currentHand']] <= 21){
 
         $_SESSION['charlie'][$_SESSION['currentHand']] = True;
@@ -543,7 +544,7 @@ function printCards(){
             } elseif ($_SESSION['result'][$hand] === 'Push') {
                 $result .= '<b>Draw!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Charlie') {
-                $result .= '<b>Five-card Charlie!</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['fiveCharlieFactor']).'!';
+                $result .= '<b>Charlie! ('.$_SESSION['charlieAmount'].' cards)</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['fiveCharlieFactor']).'!';
             } elseif ($_SESSION['result'][$hand] === 'Blackjack') {
                 $result .= '<b>Blackjack!</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['blackjackFactor']).'!';
             }
@@ -600,7 +601,7 @@ function createDeck(){
     $counter = 0;
 
     for($i = 0; $i < $_SESSION['size']; $i++){
-        for($j = 1; $j <= 13; $j++){
+        /*for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
             $counter++;
         }
@@ -615,8 +616,8 @@ function createDeck(){
         for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
             $counter++;
-        }
-        /*for($j = 1; $j <= 13; $j++){
+        }*/
+        for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => 1];
             $counter++;
         }
@@ -631,7 +632,7 @@ function createDeck(){
         for($j = 1; $j <= 13; $j++){
             $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => 1];
             $counter++;
-        }*/
+        }
     }
 
     shuffle($_SESSION['deck']);
