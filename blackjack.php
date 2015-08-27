@@ -34,7 +34,7 @@ function init(){
 
     $_SESSION['blackjackFactor'] = 2.5;
     $_SESSION['normalFactor'] = 2;
-    $_SESSION['fiveCharlieFactor'] = 2;
+    $_SESSION['charlieFactor'] = 2;
 
     $_SESSION['deck'] = []; //Cards left in the deck
 
@@ -413,7 +413,7 @@ function adjustMoney($hand = 0){
         if($_SESSION['result'][$hand] === 'Push') $factor = 1;
         elseif($_SESSION['result'][$hand] === 'Player') $factor = $_SESSION['normalFactor'];
         elseif($_SESSION['result'][$hand] === 'Blackjack') $factor = $_SESSION['blackjackFactor'];
-        elseif($_SESSION['result'][$hand] === 'Charlie') $factor = $_SESSION['fiveCharlieFactor'];
+        elseif($_SESSION['result'][$hand] === 'Charlie') $factor = $_SESSION['charlieFactor'];
 
         $_SESSION['playerMoney'] += $_SESSION['bets'][$hand] * $factor;
         $_SESSION['account'] -= $_SESSION['bets'][$hand] * $factor;
@@ -544,7 +544,7 @@ function printCards(){
             } elseif ($_SESSION['result'][$hand] === 'Push') {
                 $result .= '<b>Draw!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Charlie') {
-                $result .= '<b>Charlie! ('.$_SESSION['charlieAmount'].' cards)</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['fiveCharlieFactor']).'!';
+                $result .= '<b>Charlie! ('.$_SESSION['charlieAmount'].' cards)</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['charlieFactor']).'!';
             } elseif ($_SESSION['result'][$hand] === 'Blackjack') {
                 $result .= '<b>Blackjack!</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['blackjackFactor']).'!';
             }
