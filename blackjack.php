@@ -32,9 +32,9 @@ function init(){
         exit();
     }
 
-    $_SESSION['fiveCharlieFactor'] = 3;
     $_SESSION['blackjackFactor'] = 2.5;
     $_SESSION['normalFactor'] = 2;
+    $_SESSION['fiveCharlieFactor'] = 2;
 
     $_SESSION['deck'] = []; //Cards left in the deck
 
