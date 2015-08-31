@@ -2,7 +2,7 @@ body{
     padding-left: 20px;
 }
 .hand{
-    padding: 10px 10px 10px 0px;
+    padding: 10px 20px 10px 0px;
     float: left;
 }
 .game-section, #money, #playerCards, #dealerCards{
@@ -14,4 +14,7 @@ body{
     width:100%;
     padding-top: 3px;
     padding-bottom: 3px;
+}
+.bj-play-btn{
+    margin-right: 10px ;
 }
