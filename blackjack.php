@@ -28,7 +28,7 @@ function init(){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
         $_SESSION['blackjackError'] = 'Not enough money';
-        header('Location: index.php');
+        header('Location: ' . $_SESSION['index']);
         exit();
     }
 
@@ -94,7 +94,7 @@ function init(){
     else{
         printCards();
         //Prevents refresh of page to instantly start a new game
-        header('Location: index.php');
+        header('Location: ' . $_SESSION['index']);
     }
 }
 
@@ -637,3 +637,4 @@ function createDeck(){
 
     shuffle($_SESSION['deck']);
 }
+

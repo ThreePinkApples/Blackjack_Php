@@ -47,6 +47,7 @@ $doubleAfterSplit = $_SESSION['doubleAfterSplit'];
 
 if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
+$_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 ?>
 
 <!DOCTYPE html>
