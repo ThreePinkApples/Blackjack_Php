@@ -211,11 +211,14 @@ function doubleHand(){
             $double = False;
 
         if($_SESSION['doubleType'] != 'any'){
-            if($_SESSION['doubleType'] === '9-11'
+            $doubleRange = explode('-', $_SESSION['doubleType']);
+            /*if($_SESSION['doubleType'] === '9-11'
                 && ($_SESSION['playerSum'][$hand] < 9 || $_SESSION['playerSum'][$hand] > 11))
                 $double = False;
             elseif($_SESSION['doubleType'] === '10-11'
                     && ($_SESSION['playerSum'][$hand] < 10 || $_SESSION['playerSum'][$hand] > 11))
+                $double = False;*/
+            if($_SESSION['playerSum'][$hand] < $doubleRange[0] || $_SESSION['playerSum'][$hand] > $doubleRange[1])
                 $double = False;
         }
 
