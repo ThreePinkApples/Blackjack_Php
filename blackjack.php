@@ -144,11 +144,6 @@ function splitHand(){
         header('Location: ' . $_SESSION['index']);
         exit();
     }
-    elseif($_SESSION['maxbet'] < $_SESSION['originalBet'] * (count($_SESSION['playerCards']) + 1)){
-        $_SESSION['blackjackError'] = 'You can\'t split when total bet will exceed max bet';
-        header('Location: ' . $_SESSION['index']);
-        exit();
-    }
     if(count($_SESSION['playerCards']) <= $_SESSION['maxSplits']){
         if(isset($_SESSION['aceSplit'][$hand]) && $_SESSION['aceSplit'][$hand] && !$_SESSION['aceReSplit']) return;
 
