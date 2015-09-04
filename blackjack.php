@@ -316,9 +316,8 @@ function playerDraw(){
                 $_SESSION['splitAvailable'][$hand] = True;
             }
     }
-    elseif(count($_SESSION['playerCards']) > $_SESSION['maxSplits'] &&
-        $_SESSION['splitAvailable'][$hand])
-            $_SESSION['splitAvailable'][$hand] = False;
+    else
+        $_SESSION['splitAvailable'][$hand] = False;
 }
 
 /**
