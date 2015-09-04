@@ -28,6 +28,7 @@ function init(){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
         $_SESSION['blackjackError'] = 'Not enough money';
+        $_SESSION['acceptNewRound'] = True;
         header('Location: ' . $_SESSION['index']);
         exit();
     }
@@ -97,6 +98,7 @@ function init(){
         header('Location: ' . $_SESSION['index']);
     }
 }
+
 
 /**
  * Handles "hit" press
