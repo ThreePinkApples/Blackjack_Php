@@ -546,10 +546,10 @@ function printCards(){
         }
         elseif($_SESSION['currentHand'] === $hand) {
             $result .= '<div id="buttons">';
+            $result .= '<button type="submit" name="stand" id="stand" value="stand" class="bj-play-btn" title="End the game.">Stand</button>';
             if(isset($_SESSION['aceSplit'][$hand]) && $_SESSION['aceSplit'][$hand] && !$_SESSION['aceHitSplit']){}
             else
                 $result .= '<button type="submit" name="hit" id="hit" value="hit" class="bj-play-btn" title="Get another card.">Hit</button>';
-            $result .= '<button type="submit" name="stand" id="stand" value="stand" class="bj-play-btn" title="End the game.">Stand</button>';
             if(isset($_SESSION['splitAvailable'][$hand]) && $_SESSION['splitAvailable'][$hand]) {
                 $result .= '<button type="submit" name="split" id="split" value="split" class="bj-play-btn" title="Let\'s you take two cards of same value, and split them into to separate hands. You also have to place another bet on the new hand, equal to your original bet.">Split</button>';
             }
