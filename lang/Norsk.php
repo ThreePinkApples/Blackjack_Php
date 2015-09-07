@@ -91,4 +91,24 @@ return [
     'playAgain' => 'Spill igjen',
 
 
+    //=============================================
+    //================== CP.PHP ===================
+    //=============================================
+
+    'useSoft17Label' => 'Dealer må trekke på en soft 17',
+    'userCharlieLabel' => 'Aktiver "Charlie" regler',
+    'charlieCardsNeededLabel' => 'Antall kort nødvendig for å få "Charlie"',
+    'messageToUsersLabel' => 'Melding som skal vises til spillerne',
+    'deckAmountLabel' => 'Antall kortstokker',
+    'maxbetLabel' => 'Høyeste sum en bruker kan starte å satse med',
+    'maxSplitsLabel' => 'Antall ganger spilleren kan splitte',
+    'hitSplitAcesLabel' => 'Spilleren kan slå etter å ha splittet esser',
+    'reSplitAcesLabel' => 'Spilleren kan re-splitte esser (andre kort kan alltid re-splittes)',
+    'doubleLabel' => 'Spilleren kan doble',
+    'anyDoubleOption' => 'Alltid',
+    'doubleOptionRange' => 'Kun sum :range',
+    'whenToDoubleLabel' => 'Når spilleren kan doble',
+    'doubleAfterSplitLabel' => 'Spilleren kan doble etter å ha splittet',
+    'save' => 'Lagre',
+    'toGame' => 'Til spillet'
 ];
