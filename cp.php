@@ -73,7 +73,7 @@ if(isset($_POST['save'])){
 <body>
 <?php include('lang.php') ?>
 <section class="container-fluid bj-cp">
-    <h2>Blackjack Settings</h2>
+    <h2><?php echo trans('settings') ?></h2>
     <form method="POST" class="form-horizontal">
         <div id="soft17" class="form-group">
             <div class="col-xs-12">

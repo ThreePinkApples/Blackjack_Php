@@ -10,7 +10,9 @@ $langs = [
     'en'    => 'English',
     'no'    => 'Norsk',
 ];
-$_SESSION['lang'] = 'no';
+if(!isset($_SESSION['lang'])){
+    $_SESSION['lang'] = 'en';
+}
 
 
 if(isset($_POST['lang'])){
