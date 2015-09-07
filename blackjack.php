@@ -27,7 +27,7 @@ function init(){
     if($_SESSION['playerMoney'] < $_POST['bet']){
         $_SESSION['newRound'] = False;
         $_SESSION['playing'] = False;
-        $_SESSION['blackjackError'] = 'Not enough money';
+        $_SESSION['blackjackError'] = trans('outOfMoney');
         $_SESSION['acceptNewRound'] = True;
         header('Location: ' . $_SESSION['index']);
         exit();
@@ -140,7 +140,7 @@ function nextHand(){
 function splitHand(){
     $hand = $_SESSION['currentHand'];
     if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
-        $_SESSION['blackjackError'] = 'You can\'t afford to split';
+        $_SESSION['blackjackError'] = trans('outOfMoneySplit');
         header('Location: ' . $_SESSION['index']);
         exit();
     }
@@ -217,7 +217,7 @@ function doubleHand(){
 
         if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
             $double = False;
-            $_SESSION['blackjackError'] = 'You can\'t afford to double';
+            $_SESSION['blackjackError'] = trans('outOfMoneyDouble');
         }
 
         if($double){
@@ -499,51 +499,51 @@ function printCards(){
     $result .= '<form method="POST" onsubmit="cripple();">';
     $result .= '<div id="cards">';
     $result .= '<div id="dealerCards">';
-    $result .= '<h4>Dealer\'s cards</h4>';
+    $result .= '<h4>'.trans('dealerCards').'</h4>';
     $result .= '<div class="hand">';
     for($i = 0; $i < $count; $i++){
         $card = $_SESSION['dealerCards'][$i];
-        $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" />';
+        $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" title="'.trans($card['color']).' - '.$card['value'].'" />';
     }
     if($count > 1)
-        $result .= '<br />Sum: '.$_SESSION['dealerSum'];
+        $result .= '<br />'.trans('sum').': '.$_SESSION['dealerSum'];
     $result .= '</div>';
     $result .= '</div>';
 
 
     //Print player cards, always print all
     $result .= '<div id="playerCards">';
-    $result .= '<h4>Your cards</h4>';
+    $result .= '<h4>'.trans('yourCards').'</h4>';
     for($hand = 0; $hand < count($_SESSION['playerCards']); $hand++){
         $result .= '<div id="hand-'.$hand.'" class="hand" style="display:inline-block;">';
         for($i = 0; $i < count($_SESSION['playerCards'][$hand]); $i++){
             $card = $_SESSION['playerCards'][$hand][$i];
-            $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" />';
+            $result .= '<img src="cards/'.$card['color'].$card['value'].'.png" title="'.trans($card['color']).' - '.$card['value'].'" />';
         }
-        $result .= '<br />Sum: '.$_SESSION['playerSum'][$hand];
+        $result .= '<br />'.trans('sum').': '.$_SESSION['playerSum'][$hand];
 
         if($_SESSION['endGame']) {
             if ($_SESSION['result'][$hand] === 'Player') {
-                $result .= '<p class="alert alert-success bj-alert"><b>You won $'.($_SESSION['bets'][$hand]*$_SESSION['normalFactor']).'!</b>';
+                $result .= '<p class="alert alert-success bj-alert"><b>'.trans('win', ['money' => ($_SESSION['bets'][$hand]*$_SESSION['normalFactor'])]).'!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Dealer') {
-                $result .= '<p class="alert alert-danger bj-alert"><b>You lost!</b>';
+                $result .= '<p class="alert alert-danger bj-alert"><b>'.trans('lost').'!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Push') {
-                $result .= '<p class="alert alert-warning bj-alert"><b>Draw!</b>';
+                $result .= '<p class="alert alert-warning bj-alert"><b>'.trans('push').'!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Charlie') {
-                $result .= '<p class="alert alert-success bj-alert"><b>Charlie! ('.$_SESSION['charlieAmount'].' cards)</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['charlieFactor']).'!';
+                $result .= '<p class="alert alert-success bj-alert">'.trans('winCharlie', ['cards' => $_SESSION['charlieAmount'], 'money' =>($_SESSION['bets'][$hand]*$_SESSION['charlieFactor'])]).'!';
             } elseif ($_SESSION['result'][$hand] === 'Blackjack') {
-                $result .= '<p class="alert alert-success bj-alert"><b>Blackjack!</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['blackjackFactor']).'!';
+                $result .= '<p class="alert alert-success bj-alert">'.trans('winBlackjack', ['money' => ($_SESSION['bets'][$hand]*$_SESSION['blackjackFactor'])]).'!';
             }
             $result .= '</p>';
         }
         elseif($_SESSION['currentHand'] === $hand) {
             $result .= '<div id="buttons">';
-            $result .= '<button type="submit" name="stand" id="stand" value="stand" class="bj-play-btn btn btn-danger" title="End the game.">Stand</button>';
+            $result .= '<button type="submit" name="stand" id="stand" value="stand" class="bj-play-btn btn btn-danger" title="'.trans('infoStand').'">'.trans('stand').'</button>';
             if(isset($_SESSION['aceSplit'][$hand]) && $_SESSION['aceSplit'][$hand] && !$_SESSION['aceHitSplit']){}
             else
-                $result .= '<button type="submit" name="hit" id="hit" value="hit" class="bj-play-btn btn btn-primary" title="Get another card.">Hit</button>';
+                $result .= '<button type="submit" name="hit" id="hit" value="hit" class="bj-play-btn btn btn-primary" title="'.trans('infoHit').'">'.trans('hit').'</button>';
             if(isset($_SESSION['splitAvailable'][$hand]) && $_SESSION['splitAvailable'][$hand]) {
-                $result .= '<button type="submit" name="split" id="split" value="split" class="bj-play-btn btn btn-warning" title="Let\'s you take two cards of same value, and split them into to separate hands. You also have to place another bet on the new hand, equal to your original bet.">Split</button>';
+                $result .= '<button type="submit" name="split" id="split" value="split" class="bj-play-btn btn btn-warning" title="'.trans('infoSplit2').'">'.trans('split').'</button>';
             }
             if($_SESSION['double'] && $_SESSION['bets'][$hand] === $_SESSION['originalBet'] && count($_SESSION['playerCards'][$hand]) === 2){
                 $double = True;
@@ -561,7 +561,7 @@ function printCards(){
                 }
 
                 if($double){
-                    $result .= '<button type="submit" name="double" id="double" value="double" class="bj-play-btn btn btn-warning" title="Double your current bet on this hand, this will give you one more card, and then end this hand.">Double</button>';
+                    $result .= '<button type="submit" name="double" id="double" value="double" class="bj-play-btn btn btn-warning" title="'.trans('infoDouble2').'">'.trans('double').'</button>';
                 }
             }
             $result .= '</div>';
@@ -574,7 +574,7 @@ function printCards(){
         $result .= '<div class="row col-xs-3">';
         $result .= '<input type="number" id="bet" class="form-control" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
         $result .= '</div>';
-        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again">Play again</button>';
+        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again">'.trans('playAgain').'</button>';
     }
     $result .= '</form>';
 

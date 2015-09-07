@@ -7,6 +7,10 @@
  */
 
 return [
+    //=============================================
+    //=============== INDEX.PHP ===================
+    //=============================================
+
     'title' => 'Blackjack',
     'welcome' => 'Velkommen til :owner sin blackjack! Dette kasinoet har :account kroner på konto',
     'maxbet' => 'Du kan maks satse :maxbet kr',
@@ -51,5 +55,40 @@ return [
     'currencyBefore' => '',
     'currencyAfter' => 'kr',
     'start' => 'Start',
+
+    //=============================================
+    //=============== BLACKJACK.PHP ===============
+    //=============================================
+
+    'outOfMoney' => 'Du har for lite penger',
+    'outOfMoneySplit' => 'Du har ikke råd til å splitte',
+    'outOfMoneyDouble' => 'Du har ikke råd til å doble',
+
+    'dealerCards' => 'Dealers kort',
+    'sum' => 'Sum',
+    'yourCards' => 'Dine kort',
+
+    'c' => 'Kløver',
+    's' => 'Spar',
+    'h' => 'Hjerter',
+    'd' => 'Ruter',
+
+    'win' => 'Du vant :money kr',
+    'lost' => 'Du tapte',
+    'push' => 'Uvagjort',
+    'winCharlie' => '<b>Charlie! :cards kort</b> Du vinner :money',
+    'winBlackjack' => '<b>Blackjack!</b> Du vinner :money kr',
+
+    'stand' => 'Stå',
+    'infoStand' => 'Avslutt hånden',
+    'hit' => 'Slå',
+    'infoHit' => 'Få et nytt kort',
+    'split' => 'Splitt',
+    'infoSplit2' => 'Lar deg ta to kort av samme verdi og splitte dem opp i hver sin hånd. Dette krever at du satser start beløpet ditt en gang til',
+    'double' => 'Doble',
+    'infoDouble2' => 'Doble det du satset på den nåværende hånden, vil gi deg ett kort til og så avslutte hånden.',
+
+    'playAgain' => 'Spill igjen',
+
 
 ];
