@@ -27,3 +27,6 @@ body{
 #again{
     margin-left: 10px;
 }
+.bj-cp label{
+    font-weight: normal;
+}
