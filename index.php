@@ -60,17 +60,18 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
     <script src="js/blackjack.js"></script>
 </head>
 <body>
+<?php include('lang.php'); ?>
 <section id="info" class="game-section container-fluid">
     <div id="welcome">
-        <p>Welcome to <?php echo $owner ?>'s blackjack! This casino has <?php echo '$'.$account ?> left.</p>
+        <p><?php echo trans('welcome', ['owner' => $owner, 'account' => $account]) ?></p>
     </div>
     <div id="settings">
         <ul>
-            <li>You can't bet more than <?php echo '$'.$maxbet ?></li>
-            <li title="A Charlie is when you get certain number of cards without going above a sum of 21. Ranges from 5 cards to 10.">
+            <li><?php echo trans('maxbet', ['maxbet' => $maxbet]) ?></li>
+            <li title="<?php echo trans('infoCharlie') ?>">
             <?php
-            if ($useCharlie) echo 'You can win on a Charlie with '.$charlieAmount.' cards.</li>';
-            else echo 'You <b>can\'t</b> win on a Charlie". </li>';
+            if ($useCharlie) echo trans('canCharlie', ['charlieAmount' => $charlieAmount]).'</li>';
+            else echo trans('notCharlie').'</li>';
 
             echo '<li title="Soft 17 is when the sum is 17, but with an ace that counts as 11. Making it soft since it can also count as 7.">';
             if ($soft17) echo 'The dealer <b>have to</b> draw on a "soft 17". </li>';
