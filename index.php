@@ -115,7 +115,7 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
         </p>
     </div>
     <br />
-    <a href="cp.php" target="_blank">Control Panel</a>
+    <a href="cp.php" target="_blank"><?php echo trans('controlpanel')  ?></a>
 </section>
 <?php
 
