@@ -219,10 +219,6 @@ function doubleHand(){
             $double = False;
             $_SESSION['blackjackError'] = 'You can\'t afford to double';
         }
-        elseif($_SESSION['maxbet'] < $_SESSION['originalBet'] * 2){
-            $double = False;
-            $_SESSION['blackjackError'] = 'You can\'t double when total bet will exceed max bet';
-        }
 
         if($double){
             $_SESSION['bets'][$hand] += $_SESSION['originalBet'];
