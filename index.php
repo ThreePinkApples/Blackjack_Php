@@ -73,38 +73,37 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
             if ($useCharlie) echo trans('canCharlie', ['charlieAmount' => $charlieAmount]).'</li>';
             else echo trans('notCharlie').'</li>';
 
-            echo '<li title="Soft 17 is when the sum is 17, but with an ace that counts as 11. Making it soft since it can also count as 7.">';
-            if ($soft17) echo 'The dealer <b>have to</b> draw on a "soft 17". </li>';
-            else echo 'The dealer <b>can\'t</b> draw on a "soft 17". </li>';
+            echo '<li title="'.trans('infoSoft17').'">';
+            if ($soft17) echo trans('canSoft17').'.</li>';
+            else echo trans('notSoft17').'</li>';
 
-            echo '<li title="The number of decks may alter your winning chance.">';
-            if ($size > 1) echo 'This casino uses ' . $size . ' decks</li>';
-            else echo 'This casino uses 1 deck</li>';
+            echo '<li title="'.trans('infoDecks').'">';
+            if ($size > 1) echo trans('multipleDecks', ['size' => $size]).'</li>';
+            else echo trans('singleDeck').'</li>';
 
-            echo '<li title="If the two first cards in a hand have equal value it legal to split those two cards into separate hands with separat bets and results">';
-            if($maxSplits > 1 || $maxSplits < 1) echo 'You are allowed to split ' . $maxSplits . ' times</li>';
-            else echo 'You are allowed to split ' . $maxSplits . ' time</li>';
+            echo '<li title="'.trans('infoSplit').'">';
+            if($maxSplits > 1 || $maxSplits < 1) echo trans('multipleSplit', ['maxSplit' => $maxSplits]).'</li>';
+            else echo trans('singleSplit').'</li>';
 
-            echo '<li title="Re-splitting aces are situations where you started with two aces, then split, then receive another ace on one of those hands">';
-            if($aceReSplit) echo 'You can re-split aces.</li>';
-            else echo 'You <b>can\'t</b> re-split aces.</li>';
+            echo '<li title="'.trans('infoReSplit').'">';
+            if($aceReSplit) echo trans('canReSplit').'</li>';
+            else echo trans('notReSplit').'.</li>';
 
             echo '<li>';
-            if($aceHitSplit) echo 'You can hit after splitting aces</li>';
-            else echo 'You <b>can\'t</b> hit after splitting aces. Splitting aces will cause an automatic end of round.</li>';
+            if($aceHitSplit) echo trans('canHitSplitAce').'</li>';
+            else echo trans('notHitSplitAce').'</li>';
 
-            echo '<li title="In the beginning of a hand, when you have two cards, you can choose do double your bet. This will give you one more card and then the hand ends.">';
+            echo '<li title="'.trans('infoDouble').'">';
             if($double){
-                if($doubleType === 'any') echo 'You can double down on any cards.</li>';
-                elseif($doubleType === '9-11') echo 'You can only double on sums between 9 and 11</li>';
-                elseif($doubleType === '10-11') echo 'You can only double on sums between 10 and 11</li>';
+                if($doubleType === 'any') echo trans('anyDouble').'</li>';
+                else echo trans('rangeDouble', ['range' => $doubleType]).'</li>';
             }
-            else echo 'You <b>can\'t</b> double down.</li>';
+            else echo trans('notDouble').'</li>';
 
             if($double){
-                echo '<li title="After you have split your current hand, you can also double it after receiving the second card.">';
-                if($doubleAfterSplit) echo 'You can double down after a split</li>';
-                else echo 'You <b>can\'t</b> double down after a split</li>';
+                echo '<li>';
+                if($doubleAfterSplit) echo trans('canSplitDouble').'</li>';
+                else echo trans('notSplitDouble').'</li>';
             }
 
             ?>
@@ -112,11 +111,11 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
     </div>
     <div id="message">
         <p>
-            A little message from the owner: <pre><?php echo $message ?></pre>
+            <?php echo trans('ownerMessage') ?>: <pre><?php echo $message ?></pre>
         </p>
     </div>
     <br />
-    <a href="cp.php" target="_blank">Controllpanel</a>
+    <a href="cp.php" target="_blank">Control Panel</a>
 </section>
 <?php
 
@@ -134,12 +133,13 @@ if(!$_SESSION['playing']) {
 <section id="startGame" class="game-section container-fluid">
     <form method="POST" onsubmit="cripple();" class="form-inline">
         <div>
-            <p>You have <?php echo '$'.$playerMoney ?> </p>
+            <p><?php echo trans('playerMoney', ['playerMoney' => $playerMoney]) ?> </p>
             <div class="form-group">
-                <label for="bet">Bet: $</label>
+                <label for="bet"><?php echo trans('betLabel').' '.trans('currencyBefore') ?></label>
                 <input type="number" id="bet" class="form-control" name="bet" min="100" max="<?php echo $maxbet ?>" />
+                <label for="bet"><?php echo trans('currencyAfter') ?></label>
             </div>
-            <button type="submit" name="start" id="start" class="btn btn-success" value="start">Play!</button>
+            <button type="submit" name="start" id="start" class="btn btn-success" value="start"><?php echo trans('start') ?>!</button>
             <?php
             if(isset($_SESSION['blackjackError'])) {
                 echo '<p class="alert alert-danger bj-alert">'.$_SESSION['blackjackError'].'</p>';
@@ -166,7 +166,7 @@ else {
             ?>
         </div>
         <div id="money">
-            <h5>You money: <?php echo '$'.$_SESSION['playerMoney'] ?></h5>
+            <h5><?php echo trans('playerMoney', ['playerMoney' => $_SESSION['playerMoney']]) ?></h5>
         </div>
     </section>
 <?php
