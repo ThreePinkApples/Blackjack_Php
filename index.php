@@ -55,11 +55,12 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/blackjack.css">
     <script src="js/blackjack.js"></script>
 </head>
 <body>
-<section id="info" class="game-section">
+<section id="info" class="game-section container-fluid">
     <div id="welcome">
         <p>Welcome to <?php echo $owner ?>'s blackjack! This casino has <?php echo '$'.$account ?> left.</p>
     </div>
@@ -129,21 +130,21 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 if(!$_SESSION['playing']) {
 //Not in a game, section
 ?>
-<section id="startGame" class="game-section">
-    <form method="POST" onsubmit="cripple();">
+<section id="startGame" class="game-section container-fluid">
+    <form method="POST" onsubmit="cripple();" class="form-inline">
         <div>
             <p>You have <?php echo '$'.$playerMoney ?> </p>
-            <span>Bet: $</span>
-            <input type="number" id="bet" name="bet" min="100" max="<?php echo $maxbet ?>" />
+            <div class="form-group">
+                <label for="bet">Bet: $</label>
+                <input type="number" id="bet" class="form-control" name="bet" min="100" max="<?php echo $maxbet ?>" />
+            </div>
+            <button type="submit" name="start" id="start" class="btn btn-success" value="start">Play!</button>
             <?php
             if(isset($_SESSION['blackjackError'])) {
-                echo '<p>'.$_SESSION['blackjackError'].'</p>';
+                echo '<p class="alert alert-danger bj-alert">'.$_SESSION['blackjackError'].'</p>';
                 unset($_SESSION['blackjackError']);
             }
             ?>
-        </div>
-        <div>
-            <button type="submit" name="start" id="start" value="start">Play!</button>
         </div>
     </form>
 </section>
@@ -153,7 +154,7 @@ if(!$_SESSION['playing']) {
 else {
     include('blackjack.php');
 ?>
-    <section id="game" class="game-section">
+    <section id="game" class="game-section container-fluid">
         <?php echo $_SESSION['printedCards']; ?>
         <div id="errors">
             <?php

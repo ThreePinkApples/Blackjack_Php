@@ -527,28 +527,27 @@ function printCards(){
         $result .= '<br />Sum: '.$_SESSION['playerSum'][$hand];
 
         if($_SESSION['endGame']) {
-            $result .= '<p>';
             if ($_SESSION['result'][$hand] === 'Player') {
-                $result .= '<b>You won $'.($_SESSION['bets'][$hand]*$_SESSION['normalFactor']).'!</b>';
+                $result .= '<p class="alert alert-success bj-alert"><b>You won $'.($_SESSION['bets'][$hand]*$_SESSION['normalFactor']).'!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Dealer') {
-                $result .= '<b>You lost!</b>';
+                $result .= '<p class="alert alert-danger bj-alert"><b>You lost!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Push') {
-                $result .= '<b>Draw!</b>';
+                $result .= '<p class="alert alert-warning bj-alert"><b>Draw!</b>';
             } elseif ($_SESSION['result'][$hand] === 'Charlie') {
-                $result .= '<b>Charlie! ('.$_SESSION['charlieAmount'].' cards)</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['charlieFactor']).'!';
+                $result .= '<p class="alert alert-success bj-alert"><b>Charlie! ('.$_SESSION['charlieAmount'].' cards)</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['charlieFactor']).'!';
             } elseif ($_SESSION['result'][$hand] === 'Blackjack') {
-                $result .= '<b>Blackjack!</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['blackjackFactor']).'!';
+                $result .= '<p class="alert alert-success bj-alert"><b>Blackjack!</b> You win $'.($_SESSION['bets'][$hand]*$_SESSION['blackjackFactor']).'!';
             }
             $result .= '</p>';
         }
         elseif($_SESSION['currentHand'] === $hand) {
             $result .= '<div id="buttons">';
-            $result .= '<button type="submit" name="stand" id="stand" value="stand" class="bj-play-btn" title="End the game.">Stand</button>';
+            $result .= '<button type="submit" name="stand" id="stand" value="stand" class="bj-play-btn btn btn-danger" title="End the game.">Stand</button>';
             if(isset($_SESSION['aceSplit'][$hand]) && $_SESSION['aceSplit'][$hand] && !$_SESSION['aceHitSplit']){}
             else
-                $result .= '<button type="submit" name="hit" id="hit" value="hit" class="bj-play-btn" title="Get another card.">Hit</button>';
+                $result .= '<button type="submit" name="hit" id="hit" value="hit" class="bj-play-btn btn btn-primary" title="Get another card.">Hit</button>';
             if(isset($_SESSION['splitAvailable'][$hand]) && $_SESSION['splitAvailable'][$hand]) {
-                $result .= '<button type="submit" name="split" id="split" value="split" class="bj-play-btn" title="Let\'s you take two cards of same value, and split them into to separate hands. You also have to place another bet on the new hand, equal to your original bet.">Split</button>';
+                $result .= '<button type="submit" name="split" id="split" value="split" class="bj-play-btn btn btn-warning" title="Let\'s you take two cards of same value, and split them into to separate hands. You also have to place another bet on the new hand, equal to your original bet.">Split</button>';
             }
             if($_SESSION['double'] && $_SESSION['bets'][$hand] === $_SESSION['originalBet'] && count($_SESSION['playerCards'][$hand]) === 2){
                 $double = True;
@@ -566,7 +565,7 @@ function printCards(){
                 }
 
                 if($double){
-                    $result .= '<button type="submit" name="double" id="double" value="double" class="bj-play-btn" title="Double your current bet on this hand, this will give you one more card, and then end this hand.">Double</button>';
+                    $result .= '<button type="submit" name="double" id="double" value="double" class="bj-play-btn btn btn-warning" title="Double your current bet on this hand, this will give you one more card, and then end this hand.">Double</button>';
                 }
             }
             $result .= '</div>';
@@ -576,8 +575,10 @@ function printCards(){
     $result .= '</div>';
     $result .= '</div>';
     if($_SESSION['endGame']){
-        $result .= '<input type="number" id="bet" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
-        $result .= '<button type="submit" name="again" id="again" value="again">Play again</button>';
+        $result .= '<div class="row col-xs-3">';
+        $result .= '<input type="number" id="bet" class="form-control" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
+        $result .= '</div>';
+        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again">Play again</button>';
     }
     $result .= '</form>';
 
