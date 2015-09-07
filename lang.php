@@ -28,6 +28,8 @@ function trans($index, $replace = ''){
             $text = str_replace(':'.$key, $word, $text);
         }
     }
+    $text = htmlentities($text);
+    $text = str_replace(["&lt;i&gt;", "&lt;b&gt;", "&lt;/i&gt;", "&lt;/b&gt;"], ["<i>", "<b>", "</i>", "</b>"], $text);
     return $text;
 }
 
