@@ -29,7 +29,7 @@ function init(){
         $_SESSION['playing'] = False;
         $_SESSION['blackjackError'] = trans('outOfMoney');
         $_SESSION['acceptNewRound'] = True;
-        header('Location: ../' . $_SESSION['index']);
+        header('Location: ' . $_SESSION['index']);
         exit();
     }
 
@@ -95,7 +95,7 @@ function init(){
     else{
         printCards();
         //Prevents refresh of page to instantly start a new game
-        header('Location: ../' . $_SESSION['index'] . '#cards');
+        header('Location: ' . $_SESSION['index'] . '#cards');
     }
 }
 
@@ -110,7 +110,7 @@ function hit(){
     //endGameCheck() will cause cards to be drawn, if true
     if(!$_SESSION['endGame']){
         printCards();
-        header('Location: ../' .$_SESSION['index'] . '#hand-'.$_SESSION['currentHand']);
+        header('Location: ' .$_SESSION['index'] . '#hand-'.$_SESSION['currentHand']);
     }
 }
 
@@ -144,7 +144,7 @@ function splitHand(){
     $hand = $_SESSION['currentHand'];
     if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
         $_SESSION['blackjackError'] = trans('outOfMoneySplit');
-        header('Location: ../' . $_SESSION['index'] . '#cards');
+        header('Location: ' . $_SESSION['index'] . '#cards');
         exit();
     }
     if(count($_SESSION['playerCards']) <= $_SESSION['maxSplits']){
@@ -404,7 +404,7 @@ function endOfGame(){
         adjustMoney($hand);
     }
     printCards();
-    header('Location: ../' . $_SESSION['index'] .'#cards');
+    header('Location: ' . $_SESSION['index'] .'#cards');
 }
 
 /**
