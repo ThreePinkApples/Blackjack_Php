@@ -48,8 +48,9 @@ $doubleAfterSplit = $_SESSION['doubleAfterSplit'];
 if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
 $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
-?>
 
+include('lang.php');
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,10 +60,11 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/blackjack.css">
     <script src="js/blackjack.js"></script>
+    <title>Blackjack</title>
 </head>
 <body>
 <main>
-<?php include('lang.php'); ?>
+<?php include('langSelector.php') ?>
 <section id="info" class="game-section container-fluid">
     <div id="welcome">
         <p><?php echo trans('welcome', ['owner' => $owner, 'account' => $account]) ?></p>

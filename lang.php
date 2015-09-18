@@ -32,20 +32,3 @@ function trans($index, $replace = ''){
     $text = str_replace(["&lt;i&gt;", "&lt;b&gt;", "&lt;/i&gt;", "&lt;/b&gt;"], ["<i>", "<b>", "</i>", "</b>"], $text);
     return $text;
 }
-
-
-$result = '<form method="POST">';
-$result .= '<div class="form-group">';
-$result .= '<select name="lang" id="lang" class="form-control" onchange="this.form.submit()">';
-foreach($langs as $short => $lang){
-    $result .= '<option value="'.$short.'"';
-    if(isset($_SESSION['lang']) && $_SESSION['lang'] === $short)
-        $result .= 'selected';
-    $result .= '>' . $lang;
-    $result .= '</option>';
-}
-$result .='</select>';
-$result .='</div>';
-$result .= '</form>';
-
-echo $result;

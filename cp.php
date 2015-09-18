@@ -60,6 +60,7 @@ if(isset($_POST['save'])){
     $_SESSION['useCharlie'] = isset($_POST['useCharlie']) ? $_POST['useCharlie'] : False;
 }
 
+include('lang.php');
 ?>
 
 <!DOCTYPE html>
@@ -69,9 +70,10 @@ if(isset($_POST['save'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/blackjack.css">
+    <title>BJ - <?php echo trans('controlpanel') ?></title>
 </head>
 <body>
-<?php include('lang.php') ?>
+<?php include('langSelector.php') ?>
 <section class="container-fluid bj-cp">
     <h2><?php echo trans('settings') ?></h2>
     <form method="POST" class="form-horizontal">
