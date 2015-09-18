@@ -95,7 +95,7 @@ function init(){
     else{
         printCards();
         //Prevents refresh of page to instantly start a new game
-        header('Location: ' . $_SESSION['index']);
+        header('Location: ' . $_SESSION['index'] . '#cards');
     }
 }
 
@@ -571,8 +571,8 @@ function printCards(){
     $result .= '</div>';
     $result .= '</div>';
     if($_SESSION['endGame']){
-        $result .= '<div class="row col-xs-3">';
-        $result .= '<input type="number" id="bet" class="form-control" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
+        $result .= '<div class="row col-xs-8 col-sm-4">';
+        $result .= '<input type="number" id="bet-again" class="form-control" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
         $result .= '</div>';
         $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again">'.trans('playAgain').'</button>';
     }

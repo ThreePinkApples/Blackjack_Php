@@ -55,11 +55,13 @@ $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAM
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/blackjack.css">
     <script src="js/blackjack.js"></script>
 </head>
 <body>
+<main>
 <?php include('lang.php'); ?>
 <section id="info" class="game-section container-fluid">
     <div id="welcome">
@@ -134,7 +136,7 @@ if(!$_SESSION['playing']) {
     <form method="POST" onsubmit="cripple();" class="form-inline">
         <div>
             <p><?php echo trans('playerMoney', ['playerMoney' => $playerMoney]) ?> </p>
-            <div class="form-group">
+            <div class="form-group row col-xs-10 col-sm-5">
                 <label for="bet"><?php echo trans('betLabel').' '.trans('currencyBefore') ?></label>
                 <input type="number" id="bet" class="form-control" name="bet" min="100" max="<?php echo $maxbet ?>" />
                 <label for="bet"><?php echo trans('currencyAfter') ?></label>
@@ -172,5 +174,6 @@ else {
 <?php
 }
 ?>
+</main>
 </body>
 </html>
