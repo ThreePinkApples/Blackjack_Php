@@ -49,7 +49,7 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
 $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-include('lang.php');
+include('php/lang.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,7 +64,7 @@ include('lang.php');
 </head>
 <body>
 <main>
-<?php include('langSelector.php') ?>
+<?php include('php/langSelector.php') ?>
 <section id="info" class="game-section container-fluid">
     <div id="welcome">
         <p><?php echo trans('welcome', ['owner' => $owner, 'account' => $account]) ?></p>
@@ -157,7 +157,7 @@ if(!$_SESSION['playing']) {
 <?php
 }
 else {
-    include('blackjack.php');
+    include('php/blackjack.php');
 ?>
     <section id="game" class="game-section container-fluid">
         <?php echo $_SESSION['printedCards']; ?>
