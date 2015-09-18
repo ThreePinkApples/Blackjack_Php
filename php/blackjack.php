@@ -108,7 +108,10 @@ function hit(){
     calculate();
     endHandCheck();
     //endGameCheck() will cause cards to be drawn, if true
-    if(!$_SESSION['endGame']) printCards();
+    if(!$_SESSION['endGame']){
+        printCards();
+        header('Location: ../' .$_SESSION['index'] . '#hand-'.$_SESSION['currentHand']);
+    }
 }
 
 /**
@@ -239,6 +242,7 @@ function doubleHand(){
 function stop(){
     $_SESSION['acceptNewRound'] = True;
     $_SESSION['playing'] = False;
+    $_SESSION['stop'] = False;
 }
 
 /**
@@ -400,7 +404,7 @@ function endOfGame(){
         adjustMoney($hand);
     }
     printCards();
-    stop();
+    header('Location: ../' . $_SESSION['index'] .'#cards');
 }
 
 /**

@@ -24,6 +24,7 @@ if(!isset($_SESSION['aceReSplit'])) $_SESSION['aceReSplit'] = True;
 if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
 if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = '9-11';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
+if(!isset($_SESSION['stop'])) $_SESSION['stop'] = False;
 
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
 
@@ -160,7 +161,13 @@ else {
     include('php/blackjack.php');
 ?>
     <section id="game" class="game-section container-fluid">
-        <?php echo $_SESSION['printedCards']; ?>
+        <?php
+        echo $_SESSION['printedCards'];
+
+        if($_SESSION['stop']) stop();
+        elseif($_SESSION['endGame']) $_SESSION['stop'] = True;
+
+        ?>
         <div id="errors">
             <?php
             if(isset($_SESSION['blackjackError'])) {
@@ -173,6 +180,7 @@ else {
             <h5><?php echo trans('playerMoney', ['playerMoney' => $_SESSION['playerMoney']]) ?></h5>
         </div>
     </section>
+
 <?php
 }
 ?>
