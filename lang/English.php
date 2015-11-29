@@ -12,7 +12,7 @@ return [
     //=============================================
 
     'title' => 'Blackjack',
-    'welcome' => 'Welcome to :owner\'s blackjack! This casino has $:account',
+    'welcome' => 'Welcome to :owner\'s blackjack!<br />This casino has $:account',
     'maxbet' => 'You can max bet $:maxbet',
 
     'infoCharlie' => 'A "Charlie" is when you\'ve got a certain number of cards without surpassing 21. Varies from 5 to 10 cards.',

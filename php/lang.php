@@ -22,13 +22,13 @@ if(isset($_POST['lang'])){
 function trans($index, $replace = ''){
     global $langs;
     $text = include('lang/'.$langs[$_SESSION['lang']].'.php');
-    $text = utf8_encode($text[$index]);
+    $text = $text[$index];
     if($replace !== ''){
         foreach($replace as $key => $word){
             $text = str_replace(':'.$key, $word, $text);
         }
     }
     $text = htmlentities($text);
-    $text = str_replace(["&lt;i&gt;", "&lt;b&gt;", "&lt;/i&gt;", "&lt;/b&gt;"], ["<i>", "<b>", "</i>", "</b>"], $text);
+    $text = str_replace(["&lt;i&gt;", "&lt;b&gt;", "&lt;/i&gt;", "&lt;/b&gt;", "&lt;br /&gt;", "&lt;br/&gt;"], ["<i>", "<b>", "</i>", "</b>", "<br />", "<br />"], $text);
     return $text;
 }

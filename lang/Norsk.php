@@ -12,39 +12,39 @@ return [
     //=============================================
 
     'title' => 'Blackjack',
-    'welcome' => 'Velkommen til :owner sin blackjack! Dette kasinoet har :account kroner på konto',
+    'welcome' => 'Velkommen til :owner sin blackjack!<br />Dette kasinoet har :account kroner pÃ¥ konto',
     'maxbet' => 'Du kan maks satse :maxbet kr',
 
-    'infoCharlie' => 'En Charlie er når man har et visst antall kort uten å ha en sum over 21. Varierer fra 5 til 10 kort.',
-    'canCharlie' => 'Du kan vinne på en "Charlie" med :charlieAmount kort',
+    'infoCharlie' => 'En Charlie er nÃ¥r man har et visst antall kort uten Ã¥ ha en sum over 21. Varierer fra 5 til 10 kort.',
+    'canCharlie' => 'Du kan vinne pÃ¥ en "Charlie" med :charlieAmount kort',
     'notCharlie' => 'Du kan <b>ikke</b> vinne med en "Charlie"',
 
-    'infoSoft17' => 'Soft 17 er nå summer en 17, med med en ess som teller som 11. Dette gjør den "myk" siden summen også kan være 7.',
-    'canSoft17' => 'Dealeren <b>skal</b> trekke på en "Soft 17"',
-    'notSoft17' => 'Delaeren kan <b>ikke</b> trekke på en "Soft 17"',
+    'infoSoft17' => 'Soft 17 er nÃ¥ summer en 17, med med en ess som teller som 11. Dette gjÃ¸r den "myk" siden summen ogsÃ¥ kan vÃ¦re 7.',
+    'canSoft17' => 'Dealeren <b>skal</b> trekke pÃ¥ en "Soft 17"',
+    'notSoft17' => 'Dealeren kan <b>ikke</b> trekke pÃ¥ en "Soft 17"',
 
-    'infoDecks' => 'Antall kortstokker kan påvirke din vinnersjanse',
+    'infoDecks' => 'Antall kortstokker kan pÃ¥virke din vinnersjanse',
     'multipleDecks' => 'Dette kasinoet bruker :size kortstokker',
     'singleDeck' => 'Dette kasinoet bruker 1 korstokk',
 
-    'infoSplit' => 'Om de to første kortene i en hånd har samme verdi, er mulig å splitte kortene og da få en ekstra hånd å spille med. Disse hendene er helt separate med separate kort, separat beløp og separat resultat.',
+    'infoSplit' => 'Om de to fÃ¸rste kortene i en hÃ¥nd har samme verdi, er mulig Ã¥ splitte kortene og da fÃ¥ en ekstra hÃ¥nd Ã¥ spille med. Disse hendene er helt separate med separate kort, separat belÃ¸p og separat resultat.',
     'multipleSplit' => 'Du kan splitte :maxSplit ganger',
     'singleSplit' => 'Du kan splitte 1 gang',
 
-    'infoReSplit' => 'Re-splitting av esser gjelder situasjoner hvor du har startet med to esser, splittet, for å så få ess igjen på en av hendene.',
+    'infoReSplit' => 'Re-splitting av esser gjelder situasjoner hvor du har startet med to esser, splittet, for Ã¥ sÃ¥ fÃ¥ ess igjen pÃ¥ en av hendene.',
     'canReSplit' => 'Du kan re-splitte esser',
     'notReSplit' => 'Du kan <b>ikke</b> re-splitte esser',
 
-    'canHitSplitAce' => 'Du kan slå etter å ha splittet esser',
-    'notHitSplitAce' => 'Du kan <b>ikke</b> slå etter å ha splittet esser. Splitt av esser vil avslutte runden.',
+    'canHitSplitAce' => 'Du kan slÃ¥ etter Ã¥ ha splittet esser',
+    'notHitSplitAce' => 'Du kan <b>ikke</b> slÃ¥ etter Ã¥ ha splittet esser. Splitt av esser vil avslutte runden.',
 
-    'infoDouble' => 'I starten av en hånd, når man har to kort, kan man velge å doble det man satset. Dette vil gi ett kort til og så avslutte hånden.',
+    'infoDouble' => 'I starten av en hÃ¥nd, nÃ¥r man har to kort, kan man velge Ã¥ doble det man satset. Dette vil gi ett kort til og sÃ¥ avslutte hÃ¥nden.',
     'anyDouble' => 'Du kan alltid doble',
-    'rangeDouble' => 'Du kan doble ved en sum i området :range',
+    'rangeDouble' => 'Du kan doble ved en sum i omrÃ¥det :range',
     'notDouble' => 'Du kan <b>ikke</b> doble',
 
-    'canSplitDouble' => 'Du kan doble etter å ha splittet',
-    'notSplitDouble' => 'Du kan <b>ikke</b> doble etter å ha splittet',
+    'canSplitDouble' => 'Du kan doble etter Ã¥ ha splittet',
+    'notSplitDouble' => 'Du kan <b>ikke</b> doble etter Ã¥ ha splittet',
 
     'ownerMessage' => 'En hilsen fra eieren av kasinoet',
 
@@ -61,14 +61,14 @@ return [
     //=============================================
 
     'outOfMoney' => 'Du har for lite penger',
-    'outOfMoneySplit' => 'Du har ikke råd til å splitte',
-    'outOfMoneyDouble' => 'Du har ikke råd til å doble',
+    'outOfMoneySplit' => 'Du har ikke rÃ¥d til Ã¥ splitte',
+    'outOfMoneyDouble' => 'Du har ikke rÃ¥d til Ã¥ doble',
 
     'dealerCards' => 'Dealers kort',
     'sum' => 'Sum',
     'yourCards' => 'Dine kort',
 
-    'c' => 'Kløver',
+    'c' => 'KlÃ¸ver',
     's' => 'Spar',
     'h' => 'Hjerter',
     'd' => 'Ruter',
@@ -79,14 +79,14 @@ return [
     'winCharlie' => '<b>Charlie! :cards kort</b> Du vinner :money kr',
     'winBlackjack' => '<b>Blackjack!</b> Du vinner :money kr',
 
-    'stand' => 'Stå',
-    'infoStand' => 'Avslutt hånden',
-    'hit' => 'Slå',
-    'infoHit' => 'Få et nytt kort',
+    'stand' => 'StÃ¥',
+    'infoStand' => 'Avslutt hÃ¥nden',
+    'hit' => 'SlÃ¥',
+    'infoHit' => 'FÃ¥ et nytt kort',
     'split' => 'Splitt',
-    'infoSplit2' => 'Lar deg ta to kort av samme verdi og splitte dem opp i hver sin hånd. Dette krever at du satser start beløpet ditt en gang til',
+    'infoSplit2' => 'Lar deg ta to kort av samme verdi og splitte dem opp i hver sin hÃ¥nd. Dette krever at du satser start belÃ¸pet ditt en gang til',
     'double' => 'Doble',
-    'infoDouble2' => 'Doble det du satset på den nåværende hånden, vil gi deg ett kort til og så avslutte hånden.',
+    'infoDouble2' => 'Doble det du satset pÃ¥ den nÃ¥vÃ¦rende hÃ¥nden, vil gi deg ett kort til og sÃ¥ avslutte hÃ¥nden.',
 
     'playAgain' => 'Spill igjen',
 
@@ -96,20 +96,20 @@ return [
     //=============================================
 
     'settings' => 'Blackjack Innstillinger',
-    'useSoft17Label' => 'Dealer må trekke på en soft 17',
+    'useSoft17Label' => 'Dealer mÃ¥ trekke pÃ¥ en soft 17',
     'userCharlieLabel' => 'Aktiver "Charlie" regler',
-    'charlieCardsNeededLabel' => 'Antall kort nødvendig for å få "Charlie"',
+    'charlieCardsNeededLabel' => 'Antall kort nÃ¸dvendig for Ã¥ fÃ¥ "Charlie"',
     'messageToUsersLabel' => 'Melding som skal vises til spillerne',
     'deckAmountLabel' => 'Antall kortstokker',
-    'maxbetLabel' => 'Høyeste sum en bruker kan starte å satse med',
+    'maxbetLabel' => 'HÃ¸yeste sum en bruker kan starte Ã¥ satse med',
     'maxSplitsLabel' => 'Antall ganger spilleren kan splitte',
-    'hitSplitAcesLabel' => 'Spilleren kan slå etter å ha splittet esser',
+    'hitSplitAcesLabel' => 'Spilleren kan slÃ¥ etter Ã¥ ha splittet esser',
     'reSplitAcesLabel' => 'Spilleren kan re-splitte esser (andre kort kan alltid re-splittes)',
     'doubleLabel' => 'Spilleren kan doble',
     'anyDoubleOption' => 'Alltid',
     'doubleOptionRange' => 'Kun sum :range',
-    'whenToDoubleLabel' => 'Når spilleren kan doble',
-    'doubleAfterSplitLabel' => 'Spilleren kan doble etter å ha splittet',
+    'whenToDoubleLabel' => 'NÃ¥r spilleren kan doble',
+    'doubleAfterSplitLabel' => 'Spilleren kan doble etter Ã¥ ha splittet',
     'save' => 'Lagre',
     'toGame' => 'Til spillet'
 ];

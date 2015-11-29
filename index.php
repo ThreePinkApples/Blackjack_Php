@@ -68,11 +68,11 @@ require('php/lang.php');
 <?php require('php/langSelector.php') ?>
 <section id="info" class="game-section container-fluid">
     <div id="welcome">
-        <p><?php echo trans('welcome', ['owner' => $owner, 'account' => $account]) ?></p>
+        <p><?php echo trans('welcome', ['owner' => $owner, 'account' => number_format($account, 0, '.', ' ')]) ?></p>
     </div>
     <div id="settings">
         <ul>
-            <li><?php echo trans('maxbet', ['maxbet' => $maxbet]) ?></li>
+            <li><?php echo trans('maxbet', ['maxbet' => number_format($maxbet, 0, '.', ' ')]) ?></li>
             <li title="<?php echo trans('infoCharlie') ?>">
             <?php
             if ($useCharlie) echo trans('canCharlie', ['charlieAmount' => $charlieAmount]).'</li>';
@@ -138,7 +138,7 @@ if(!$_SESSION['playing']) {
 <section id="startGame" class="game-section container-fluid">
     <form method="POST" onsubmit="cripple();" class="form-inline">
         <div>
-            <p><?php echo trans('playerMoney', ['playerMoney' => $playerMoney]) ?> </p>
+            <p><?php echo trans('playerMoney', ['playerMoney' => number_format($playerMoney, 0, '.', ' ')]) ?> </p>
             <div class="form-group row col-xs-10 col-sm-5">
                 <label for="bet"><?php echo trans('betLabel').' '.trans('currencyBefore') ?></label>
                 <input type="number" id="bet" class="form-control" name="bet" min="100" max="<?php echo $maxbet ?>" />
@@ -177,7 +177,7 @@ else {
             ?>
         </div>
         <div id="money">
-            <h5><?php echo trans('playerMoney', ['playerMoney' => $_SESSION['playerMoney']]) ?></h5>
+            <h5><?php echo trans('playerMoney', ['playerMoney' => number_format($_SESSION['playerMoney'], 0, '.', ' ')]) ?></h5>
         </div>
     </section>
 
