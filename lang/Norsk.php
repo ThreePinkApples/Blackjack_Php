@@ -75,7 +75,7 @@ return [
 
     'win' => 'Du vant :money kr',
     'lost' => 'Du tapte',
-    'push' => 'Uvagjort',
+    'push' => 'Uavgjort',
     'winCharlie' => '<b>Charlie! :cards kort</b> Du vinner :money kr',
     'winBlackjack' => '<b>Blackjack!</b> Du vinner :money kr',
 
