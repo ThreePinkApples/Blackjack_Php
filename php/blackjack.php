@@ -6,7 +6,7 @@
  * Time: 17.52
  */
 
-if($_SESSION['newRound']) init();
+if(isset($_SESSION['newRound']) && $_SESSION['newRound']) init();
 elseif(isset($_POST['hit'])) hit();
 elseif(isset($_POST['stand'])) stand();
 elseif(isset($_POST['split'])) splitHand();
@@ -17,7 +17,7 @@ elseif(isset($_POST['double'])) doubleHand();
  */
 function init(){
     if(!$_SESSION['acceptNewRound']){
-        exit();
+        return;
     }
     else{
         $_SESSION['acceptNewRound'] = False;
