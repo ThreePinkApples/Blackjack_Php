@@ -50,7 +50,7 @@ if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
 $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
-include('php/lang.php');
+require('php/lang.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,7 +65,7 @@ include('php/lang.php');
 </head>
 <body>
 <main>
-<?php include('php/langSelector.php') ?>
+<?php require('php/langSelector.php') ?>
 <section id="info" class="game-section container-fluid">
     <div id="welcome">
         <p><?php echo trans('welcome', ['owner' => $owner, 'account' => $account]) ?></p>
@@ -158,7 +158,7 @@ if(!$_SESSION['playing']) {
 <?php
 }
 else {
-    include('php/blackjack.php');
+    require('php/blackjack.php');
 ?>
     <section id="game" class="game-section container-fluid">
         <?php
