@@ -20,8 +20,8 @@ $minCharlie = 5;
 $maxCharlie = 10;
 
 if(isset($_POST['save'])){
-    $_SESSION['soft17'] = isset($_POST['soft17']) ? $_POST['soft17'] : False;
-    $_SESSION['fiveCharlie'] = isset($_POST['charlie']) ? $_POST['charlie'] : False;
+    $_SESSION['soft17'] = isset($_POST['soft17']) ? True : False;
+    $_SESSION['fiveCharlie'] = isset($_POST['charlie']) ? True : False;
     $_SESSION['message'] = $_POST['message'];
 
     if($_POST['size'] > $maxSize)
@@ -52,12 +52,12 @@ if(isset($_POST['save'])){
     else
         $_SESSION['charlieAmount'] = $_POST['charlieAmount'];
 
-    $_SESSION['aceHitSplit'] = isset($_POST['aceHitSplit']) ? $_POST['aceHitSplit'] : False;
-    $_SESSION['aceReSplit'] = isset($_POST['aceReSplit']) ? $_POST['aceReSplit'] : False;
-    $_SESSION['double'] = isset($_POST['double']) ? $_POST['double'] : False;
+    $_SESSION['aceHitSplit'] = isset($_POST['aceHitSplit']) ? True : False;
+    $_SESSION['aceReSplit'] = isset($_POST['aceReSplit']) ? True : False;
+    $_SESSION['double'] = isset($_POST['double']) ? True : False;
     $_SESSION['doubleType'] = $_POST['doubleType'];
-    $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? $_POST['doubleAfterSplit'] : False;
-    $_SESSION['useCharlie'] = isset($_POST['useCharlie']) ? $_POST['useCharlie'] : False;
+    $_SESSION['doubleAfterSplit'] = isset($_POST['doubleAfterSplit']) ? True : False;
+    $_SESSION['useCharlie'] = isset($_POST['useCharlie']) ? True : False;
 }
 
 include('lang.php');
