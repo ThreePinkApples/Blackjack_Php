@@ -40,7 +40,6 @@ if(!empty($_POST)){
     }
     else{
         $_SESSION['doubleClick'] = True;
-        $_SESSION['blackjackError'] = 'Double click';
     }
 }
 
