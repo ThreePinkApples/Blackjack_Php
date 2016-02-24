@@ -65,6 +65,7 @@ return [
     'outOfMoneyDouble' => 'You can\'t afford to double',
 
     'dealerCards' => 'Dealer cards',
+    'playerCards' => 'Player cards',
     'sum' => 'Sum',
     'yourCards' => 'Your cards',
 

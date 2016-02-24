@@ -400,6 +400,31 @@ function endOfGame(){
 }
 
 /**
+ * Prints out cards on specified hand in a humanly readable form
+ * @param $hand Hand to print
+ * @return string
+ */
+function printCardsReadable($hand){
+    $printed = ''.trans('playerCards').': ';
+    for($card = 0; $card < count($_SESSION['playerCards'][$hand]); $card++){
+        $printed .= trans($_SESSION['playerCards'][$hand][$card]['color']).' - '.$_SESSION['playerCards'][$hand][$card]['value'];
+        if($card < count($_SESSION['playerCards'][$hand]) - 1){
+            $printed .= ', ';
+        }
+        else $printed .= '.';
+    }
+    $printed .= '  '.trans('dealerCards').': ';
+    for($card = 0; $card < count($_SESSION['dealerCards']); $card++){
+        $printed .= trans($_SESSION['dealerCards'][$card]['color']).' - '.$_SESSION['dealerCards'][$card]['value'];
+        if($card < count($_SESSION['dealerCards']) - 1){
+            $printed .= ', ';
+        }
+        else $printed .= '.';
+    }
+    return $printed;
+}
+
+/**
  * Adjusts money based on result
  * @param int $hand Which hands result to adjust for
  */

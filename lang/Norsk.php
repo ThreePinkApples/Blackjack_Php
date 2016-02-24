@@ -65,6 +65,7 @@ return [
     'outOfMoneyDouble' => 'Du har ikke råd til å doble',
 
     'dealerCards' => 'Dealers kort',
+    'playerCards' => 'Spillerens kort',
     'sum' => 'Sum',
     'yourCards' => 'Dine kort',
 
