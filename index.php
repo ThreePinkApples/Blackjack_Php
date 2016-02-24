@@ -63,7 +63,6 @@ require('php/lang.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/blackjack.css">
-    <script src="js/blackjack.js"></script>
     <title>Blackjack</title>
 </head>
 <body>
