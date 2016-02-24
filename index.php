@@ -25,10 +25,13 @@ if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
 if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = '9-11';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
 if(!isset($_SESSION['stop'])) $_SESSION['stop'] = False;
+//End test data
+
+
 
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
-
-
+if(!isset($_SESSION['pageInstanceIds'])) $_SESSION['pageInstanceIds'] = [];
+$_SESSION['pageInstanceIds'][] = uniqid('', true);
 
 $owner = $_SESSION['owner'];
 $useCharlie = $_SESSION['useCharlie'];
@@ -136,7 +139,8 @@ if(!$_SESSION['playing']) {
 //Not in a game, section
 ?>
 <section id="startGame" class="game-section container-fluid">
-    <form method="POST" onsubmit="cripple();" class="form-inline">
+    <form method="POST" class="form-inline">
+        <input type="hidden" name="pageInstanceId" value="<?php echo end($_SESSION['pageInstanceIds']) ?>"/>
         <div>
             <p><?php echo trans('playerMoney', ['playerMoney' => number_format($playerMoney, 0, '.', ' ')]) ?> </p>
             <div class="form-group row col-xs-10 col-sm-5">

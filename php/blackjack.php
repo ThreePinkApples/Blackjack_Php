@@ -6,20 +6,29 @@
  * Time: 17.52
  */
 
-if(isset($_SESSION['newRound']) && $_SESSION['newRound']) init();
-elseif(isset($_POST['hit'])) hit();
-elseif(isset($_POST['stand'])) stand();
-elseif(isset($_POST['split'])) splitHand();
-elseif(isset($_POST['double'])) doubleHand();
+if(isset($_POST['pageInstanceId']) && validateInstance()){
+    if(isset($_SESSION['newRound']) && $_SESSION['newRound']) init();
+    elseif(isset($_POST['hit'])) hit();
+    elseif(isset($_POST['stand'])) stand();
+    elseif(isset($_POST['split'])) splitHand();
+    elseif(isset($_POST['double'])) doubleHand();
+} else return;
 
+//Prevents double POST
+function validateInstance(){
+    $pageIdIndex = array_search($_POST['pageInstanceId'], $_SESSION['pageInstanceIds']);
+    if($pageIdIndex !== False){
+        unset($_SESSION['pageInstanceIds'][$pageIdIndex]);
+        return True;
+    }
+    return False;
+}
 /**
  * Initializes a new round
  */
 
 function init(){
-    if(!$_SESSION['acceptNewRound']){
-        return;
-    }
+    if(!$_SESSION['acceptNewRound']) return;
     else{
         $_SESSION['acceptNewRound'] = False;
     }
@@ -494,7 +503,8 @@ function printCards(){
     if($_SESSION['endGame']){
         $count = count($_SESSION['dealerCards']);
     }
-    $result .= '<form method="POST" onsubmit="cripple();">';
+    $result .= '<form method="POST">';
+    $result .= '<input type="hidden" name="pageInstanceId" value="'.end($_SESSION['pageInstanceIds']).'"/>';
     $result .= '<div id="cards">';
     $result .= '<div id="dealerCards">';
     $result .= '<h4>'.trans('dealerCards').'</h4>';
@@ -572,10 +582,9 @@ function printCards(){
         $result .= '<div class="row col-xs-8 col-sm-4">';
         $result .= '<input type="number" id="bet-again" class="form-control" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
         $result .= '</div>';
-        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again">'.trans('playAgain').'</button>';
+        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again" onclick=cripple(this)>'.trans('playAgain').'</button>';
     }
     $result .= '</form>';
-
     $_SESSION['printedCards'] = $result;
 }
 
