@@ -6,32 +6,20 @@
  * Time: 17.52
  */
 
-if(isset($_POST['pageInstanceId']) && validateInstance()){
+if(!isset($_SESSION['doubleClick'])){
     if(isset($_SESSION['newRound']) && $_SESSION['newRound']) init();
     elseif(isset($_POST['hit'])) hit();
     elseif(isset($_POST['stand'])) stand();
     elseif(isset($_POST['split'])) splitHand();
     elseif(isset($_POST['double'])) doubleHand();
-} else return;
-
-//Prevents double POST
-function validateInstance(){
-    $pageIdIndex = array_search($_POST['pageInstanceId'], $_SESSION['pageInstanceIds']);
-    if($pageIdIndex !== False){
-        unset($_SESSION['pageInstanceIds'][$pageIdIndex]);
-        return True;
-    }
-    return False;
 }
+
 /**
  * Initializes a new round
  */
-
 function init(){
     if(!$_SESSION['acceptNewRound']) return;
-    else{
-        $_SESSION['acceptNewRound'] = False;
-    }
+    else $_SESSION['acceptNewRound'] = False;
 
     //Make sure player is not trying to use money it doesn't have
     if($_SESSION['playerMoney'] < $_POST['bet']){
@@ -246,6 +234,7 @@ function stop(){
     $_SESSION['acceptNewRound'] = True;
     $_SESSION['playing'] = False;
     $_SESSION['stop'] = False;
+    $_SESSION['endGame'] = False;
 }
 
 /**
@@ -582,7 +571,7 @@ function printCards(){
         $result .= '<div class="row col-xs-8 col-sm-4">';
         $result .= '<input type="number" id="bet-again" class="form-control" name="bet" min="100" max="'.$_SESSION['maxbet'].'" value="'.$_SESSION['originalBet'].'"/>';
         $result .= '</div>';
-        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again" onclick=cripple(this)>'.trans('playAgain').'</button>';
+        $result .= '<button type="submit" name="again" id="again" class="btn btn-info" value="again">'.trans('playAgain').'</button>';
     }
     $result .= '</form>';
     $_SESSION['printedCards'] = $result;

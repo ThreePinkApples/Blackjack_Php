@@ -15,7 +15,6 @@ if(!isset($_SESSION['soft17'])) $_SESSION['soft17'] = False;
 if(!isset($_SESSION['message'])) $_SESSION['message'] = "Have fun!";
 if(!isset($_SESSION['size'])) $_SESSION['size'] = 4;
 if(!isset($_SESSION['maxbet'])) $_SESSION['maxbet'] = 10000000;
-
 if(!isset($_SESSION['account'])) $_SESSION['account'] = 1000000000;
 if(!isset($_SESSION['playerMoney'])) $_SESSION['playerMoney'] = 100000000;
 if(!isset($_SESSION['maxSplits'])) $_SESSION['maxSplits'] = 3;
@@ -24,14 +23,26 @@ if(!isset($_SESSION['aceReSplit'])) $_SESSION['aceReSplit'] = True;
 if(!isset($_SESSION['double'])) $_SESSION['double'] = True;
 if(!isset($_SESSION['doubleType'])) $_SESSION['doubleType'] = '9-11';
 if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
-if(!isset($_SESSION['stop'])) $_SESSION['stop'] = False;
 //End test data
 
-
-
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
-if(!isset($_SESSION['pageInstanceIds'])) $_SESSION['pageInstanceIds'] = [];
-$_SESSION['pageInstanceIds'][] = uniqid('', true);
+if(!isset($_SESSION['stop'])) $_SESSION['stop'] = False;
+if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
+
+//Prevents double POST
+if(!isset($_SESSION['pageInstanceIds'])) $_SESSION['pageInstanceIds'] = [uniqid('', true)];
+if(!empty($_POST)){
+    $pageIdIndex = array_search($_POST['pageInstanceId'], $_SESSION['pageInstanceIds']);
+    if($pageIdIndex !== False){
+        unset($_SESSION['pageInstanceIds'][$pageIdIndex]);
+        unset($_SESSION['doubleClick']);
+        $_SESSION['pageInstanceIds'][] = uniqid('', true);
+    }
+    else{
+        $_SESSION['doubleClick'] = True;
+        $_SESSION['blackjackError'] = 'Double click';
+    }
+}
 
 $owner = $_SESSION['owner'];
 $useCharlie = $_SESSION['useCharlie'];
@@ -48,8 +59,6 @@ $aceReSplit = $_SESSION['aceReSplit'];
 $double = $_SESSION['double'];
 $doubleType = $_SESSION['doubleType'];
 $doubleAfterSplit = $_SESSION['doubleAfterSplit'];
-
-if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
 
 $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
@@ -125,17 +134,15 @@ require('php/lang.php');
     <a href="cp.php" target="_blank"><?php echo trans('controlpanel')  ?></a>
 </section>
 <?php
-
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
+if(!isset($_SESSION['doubleClick'])){
     if(isset($_POST['bet']) && $_POST['bet'] >= 100 && $_POST['bet'] <= $maxbet){
         //Game starting
         $_SESSION['playing'] = True;
         $_SESSION['newRound'] = True;
     }
 }
-
-if(!$_SESSION['playing']) {
-//Not in a game, section
+if(!$_SESSION['playing'] && !isset($_SESSION['doubleClick'])){
+//Not in a game and no double click
 ?>
 <section id="startGame" class="game-section container-fluid">
     <form method="POST" class="form-inline">
@@ -169,7 +176,7 @@ else {
 
         if($_SESSION['stop']) stop();
         elseif($_SESSION['endGame']) $_SESSION['stop'] = True;
-
+        if(isset($_SESSION['doubleClick'])) unset($_SESSION['doubleClick']);
         ?>
         <div id="errors">
             <?php
@@ -187,6 +194,7 @@ else {
 <?php
 }
 ?>
+
 </main>
 </body>
 </html>
