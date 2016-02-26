@@ -60,7 +60,7 @@ if(isset($_POST['save'])){
     $_SESSION['useCharlie'] = isset($_POST['useCharlie']) ? True : False;
 }
 
-include('lang.php');
+require('php/lang.php');
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +73,7 @@ include('lang.php');
     <title>BJ - <?php echo trans('controlpanel') ?></title>
 </head>
 <body>
-<?php include('langSelector.php') ?>
+<?php require('php/langSelector.php') ?>
 <section class="container-fluid bj-cp">
     <h2><?php echo trans('settings') ?></h2>
     <form method="POST" class="form-horizontal">
