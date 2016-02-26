@@ -142,10 +142,13 @@ function splitHand(){
     $hand = $_SESSION['currentHand'];
     if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
         $_SESSION['blackjackError'] = trans('outOfMoneySplit');
+        //Must reprint cards to get new page instance id
+        printCards();
         redirectTo($_SESSION['index'] . '#cards');
+        //Must exit to prevent error message being removed
         exit();
     }
-    if(count($_SESSION['playerCards']) <= $_SESSION['maxSplits']){
+    else if(count($_SESSION['playerCards']) <= $_SESSION['maxSplits']){
         if(isset($_SESSION['aceSplit'][$hand]) && $_SESSION['aceSplit'][$hand] && !$_SESSION['aceReSplit']) return;
 
         $newHand = count($_SESSION['playerCards']);
@@ -210,6 +213,7 @@ function doubleHand(){
 
 
         if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
+            //Not enough money
             $double = False;
             $_SESSION['blackjackError'] = trans('outOfMoneyDouble');
         }
@@ -222,7 +226,11 @@ function doubleHand(){
             stand();
         }
         else{
+            //Must reprint cards to get new page instance id
             printCards();
+            redirectTo($_SESSION['index'] . '#cards');
+            //Must exit to prevent error message being removed
+            exit();
         }
     }
 }
