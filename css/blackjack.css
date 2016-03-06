@@ -38,3 +38,7 @@ main {
     display: inline-block;
     width: 70%;
 }
+.blackjack-alert{
+    float: left;
+    width: 100%;
+}

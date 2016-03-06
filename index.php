@@ -177,14 +177,15 @@ else {
         elseif($_SESSION['endGame']) $_SESSION['stop'] = True;
         if(isset($_SESSION['doubleClick'])) unset($_SESSION['doubleClick']);
         ?>
-        <div id="errors">
-            <?php
-            if(isset($_SESSION['blackjackError'])) {
-                echo '<p>'.$_SESSION['blackjackError'].'</p>';
-                unset($_SESSION['blackjackError']);
-            }
-            ?>
+        <?php
+        if(isset($_SESSION['blackjackError'])): ?>
+        <div id="errors" class="alert alert-danger blackjack-alert">
+            <p> <?php echo $_SESSION['blackjackError']; ?></p>
         </div>
+        <?php
+            unset($_SESSION['blackjackError']);
+        endif;
+        ?>
         <div id="money">
             <h5><?php echo trans('playerMoney', ['playerMoney' => number_format($_SESSION['playerMoney'], 0, '.', ' ')]) ?></h5>
         </div>
