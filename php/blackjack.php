@@ -318,6 +318,20 @@ function playerDraw(){
 }
 
 /**
+ * Checks if there is any point in the dealer drawing more cards
+ *
+ * @return bool
+ */
+function shouldDealerDraw(){
+    for($hand = 0; $hand < count($_SESSION['playerCards']); $hand++){
+        if($_SESSION['playerSum'][$hand] <= 21){
+            return True;
+        }
+    }
+    return False;
+}
+
+/**
  * Draw cards for dealer
  */
 function dealerDraw(){
@@ -332,7 +346,7 @@ function dealerDraw(){
             array_splice($_SESSION['deck'], $index, 1);
         }
     }
-    else{
+    else if(shouldDealerDraw()){
         calculate();
 
         $maxSum = 17;
