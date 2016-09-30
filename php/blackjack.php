@@ -140,6 +140,12 @@ function nextHand(){
  */
 function splitHand(){
     $hand = $_SESSION['currentHand'];
+    if(!isset($_SESSION['splitAvailable'][$hand]) or !$_SESSION['splitAvailable'][$hand]){
+		//Player tried to split by manipulating HTML, bad user!
+        printCards();
+        redirectTo($_SESSION['index'] . '#cards');
+        exit();
+    }
     if($_SESSION['playerMoney'] < $_SESSION['originalBet']){
         $_SESSION['blackjackError'] = trans('outOfMoneySplit');
         //Must reprint cards to get new page instance id
