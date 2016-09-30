@@ -13,9 +13,7 @@ $langs = [
 if(!isset($_SESSION['lang'])){
     $_SESSION['lang'] = 'en';
 }
-
-
-if(isset($_POST['lang'])){
+else{
     $_SESSION['lang'] = $_POST['lang'];
 }
 
