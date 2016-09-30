@@ -13,6 +13,10 @@ if(!isset($_SESSION['doubleClick'])){
     elseif(isset($_POST['split'])) splitHand();
     elseif(isset($_POST['double'])) doubleHand();
 }
+else if(isset($_SESSION['language_changed']) && $_SESSION['language_changed']){
+	printCards();
+	$_SESSION['language_changed'] = false;
+}
 
 /**
  * Initializes a new round

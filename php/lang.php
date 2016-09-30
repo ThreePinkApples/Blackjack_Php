@@ -10,13 +10,13 @@ $langs = [
     'en'    => 'English',
     'no'    => 'Norsk',
 ];
-if(!isset($_SESSION['lang'])){
-    $_SESSION['lang'] = 'en';
-}
-
 
 if(isset($_POST['lang'])){
     $_SESSION['lang'] = $_POST['lang'];
+	$_SESSION['language_changed'] = true;
+}
+else if(!isset($_SESSION['lang'])){
+    $_SESSION['lang'] = 'en';
 }
 
 function trans($index, $replace = ''){
