@@ -44,7 +44,6 @@ function init(){
     //Initializes only one array, so that you can count this array to know number of splits
     $_SESSION['playerCards'] = [[]]; //Cards player has received
     $_SESSION['dealerCards'] = []; //Cards dealer has received
-    //$_SESSION['playerCardsCalculated'] = [0,0,0,0]; //How many cards have already been calculated
     $_SESSION['dealerCardsCalculated'] = 0; //How many cards have already been calculated
 
     $_SESSION['playerAce'] = [False]; //Player has ace counting as 11
@@ -402,7 +401,7 @@ function endOfGame(){
             }
         }
         elseif($_SESSION['charlie'][$hand]){
-            //Player wins 3x on charlie!
+            //Player wins 2x on charlie!
             $_SESSION['result'][$hand] = 'Charlie';
         }
         elseif($_SESSION['playerSum'][$hand] > 21){
@@ -518,7 +517,7 @@ function calculate(){
  */
 function calculateCard(&$card, &$ace, &$sum){
     if($card['gameValue'] === 1){
-        if($ace || ($sum + 11) > 21) $sum += 1; //Two aces is higher than 22
+        if($ace || ($sum + 11) > 21) $sum += 1;
         else{
             $sum += 11;
             $ace = True;
