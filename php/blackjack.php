@@ -640,40 +640,18 @@ function printCards(){
  */
 function createDeck(){
     $counter = 0;
-
+	$colors = ['h', 'd', 'c', 's'];
     for($i = 0; $i < $_SESSION['size']; $i++){
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
-            $counter++;
-        }
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'd', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
-            $counter++;
-        }
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'c', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
-            $counter++;
-        }
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
-            $counter++;
-        }
-        /*for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'h', 'value' => $j, 'gameValue' => 10];
-            $counter++;
-        }
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'd', 'value' => $j, 'gameValue' => 10];
-            $counter++;
-        }
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 'c', 'value' => $j, 'gameValue' => 1];
-            $counter++;
-        }
-        for($j = 1; $j <= 13; $j++){
-            $_SESSION['deck'][$counter] = ['color' => 's', 'value' => $j, 'gameValue' => 1];
-            $counter++;
-        }*/
+		foreach($colors as $color){
+			for($j = 1; $j <= 13; $j++){
+				$_SESSION['deck'][$counter] = ['color' => $color, 'value' => $j, 'gameValue' => $j > 10 ? 10 : $j];
+				$counter++;
+			}
+			/*for($j = 1; $j <= 13; $j++){
+				$_SESSION['deck'][$counter] = ['color' =>  $color, 'value' => $j, 'gameValue' => 1];
+				$counter++;
+			}*/
+		}
     }
 
     shuffle($_SESSION['deck']);
