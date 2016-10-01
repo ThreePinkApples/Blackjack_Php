@@ -5,19 +5,20 @@
  * Date: 18.09.2015
  * Time: 12.52
  */
-
-$result = '<form method="POST">';
-$result .= '<div class="form-group">';
-$result .= '<select name="lang" id="lang" class="form-control" onchange="this.form.submit()">';
-foreach($langs as $short => $lang){
-    $result .= '<option value="'.$short.'"';
+?>
+<form method="POST">
+	<div class="form-group">
+		<select name="lang" id="lang" class="form-control" onchange="this.form.submit()">
+<?php
+foreach($langs as $short => $lang):
+    $options .= '<option value="'.$short.'"';
     if(isset($_SESSION['lang']) && $_SESSION['lang'] === $short)
-        $result .= 'selected';
-    $result .= '>' . $lang;
-    $result .= '</option>';
-}
-$result .='</select>';
-$result .='</div>';
-$result .= '</form>';
-
-echo $result;
+        $options .= 'selected';
+    $options .= '>' . $lang;
+    $options .= '</option>';
+endforeach;
+echo $options;
+?>
+		</select>
+	</div>
+</form>
