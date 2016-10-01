@@ -6,7 +6,7 @@
  * Time: 15.26
  */
 session_start();
-
+require('php/lang.php');
 //Test data
 $_SESSION['owner'] = 'aerandir92';
 if(!isset($_SESSION['useCharlie'])) $_SESSION['useCharlie'] = False;
@@ -28,6 +28,7 @@ if(!isset($_SESSION['doubleAfterSplit'])) $_SESSION['doubleAfterSplit'] = True;
 if(!isset($_SESSION['acceptNewRound'])) $_SESSION['acceptNewRound'] = True;
 if(!isset($_SESSION['stop'])) $_SESSION['stop'] = False;
 if(!isset($_SESSION['playing'])) $_SESSION['playing'] = False;
+if(!isset($_SESSION['language_changed'])) $_SESSION['language_changed'] = false;
 
 //Prevents double POST
 if(!isset($_SESSION['pageInstanceIds'])) $_SESSION['pageInstanceIds'] = [uniqid('', true)];
@@ -38,7 +39,7 @@ if(!empty($_POST)){
         unset($_SESSION['doubleClick']);
         $_SESSION['pageInstanceIds'][] = uniqid('', true);
     }
-    else{
+    else if(!$_SESSION['language_changed']){
         $_SESSION['doubleClick'] = True;
     }
 }
@@ -60,8 +61,6 @@ $doubleType = $_SESSION['doubleType'];
 $doubleAfterSplit = $_SESSION['doubleAfterSplit'];
 
 $_SESSION['index'] = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
-
-require('php/lang.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -176,8 +175,7 @@ else {
         if($_SESSION['stop']) stop();
         elseif($_SESSION['endGame']) $_SESSION['stop'] = True;
         if(isset($_SESSION['doubleClick'])) unset($_SESSION['doubleClick']);
-        ?>
-        <?php
+		
         if(isset($_SESSION['blackjackError'])): ?>
         <div id="errors" class="alert alert-danger blackjack-alert">
             <p> <?php echo $_SESSION['blackjackError']; ?></p>
